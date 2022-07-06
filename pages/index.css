@@ -1,0 +1,13 @@
+/* -----------------Common styles----------------- */
+
+@import url(../vendor/normalize.css);
+@import url(../vendor/fonts/fonts.css);
+@import url(../blocks/page/page.css);
+
+/* -----------------Header styles----------------- */
+
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__logo/header__logo.css);
+@import url(../blocks/header/__lang-switcher/header__lang-switcher.css);
+@import url(../blocks/header/__btn/header__btn.css);
+@import url(../blocks/header/__btn/_active/header__btn_active.css);
