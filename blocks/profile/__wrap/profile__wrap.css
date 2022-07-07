@@ -1,3 +1,4 @@
 .profile__wrap {
   display: flex;
+  align-items: center;
 }

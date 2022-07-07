@@ -1,2 +1,7 @@
 .profile__edit-btn {
+  height: 24px;
+  width: 24px;
+  background: url(../../../images/Edit_icon.svg) no-repeat center center;
+  background-size: cover;
+  border: none;
 }
