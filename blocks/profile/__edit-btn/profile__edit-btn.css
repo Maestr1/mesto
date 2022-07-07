@@ -1,4 +1,7 @@
 .profile__edit-btn {
+  position: absolute;
+  top: 14px;
+  right: -44px;
   height: 24px;
   width: 24px;
   background: url(../../../images/Edit_icon.svg) no-repeat center center;
