@@ -1,2 +1,9 @@
 .gallery__like-btn {
+  padding: 0;
+  padding-left: 22px;
+  width: 22px;
+  height: 19px;
+  border: none;
+  background: url(../../../images/like_icon.svg) no-repeat center center;
+  background-size: contain;
 }

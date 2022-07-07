@@ -1,2 +1,6 @@
 .gallery__desc {
+  padding: 25px 21px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

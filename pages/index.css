@@ -19,3 +19,16 @@
 @import url(../blocks/profile/__prof/profile__prof.css);
 @import url(../blocks/profile/__edit-btn/profile__edit-btn.css);
 @import url(../blocks/profile/__add-btn/profile__add-btn.css);
+
+/* -----------------Gallery styles----------------- */
+
+@import url(../blocks/gallery/gallery.css);
+@import url(../blocks/gallery/__card/gallery__card.css);
+@import url(../blocks/gallery/__desc/gallery__desc.css);
+@import url(../blocks/gallery/__pic/gallery__pic.css);
+@import url(../blocks/gallery/__title/gallery__title.css);
+@import url(../blocks/gallery/__like-btn/gallery__like-btn.css);
+
+/* -----------------Footer styles----------------- */
+
+@import url(../blocks/footer/footer.css);
