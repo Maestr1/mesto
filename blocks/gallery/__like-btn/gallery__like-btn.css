@@ -6,4 +6,15 @@
   border: none;
   background: url(../../../images/like_icon.svg) no-repeat center center;
   background-size: contain;
+  transition: opacity .2s ease-in-out;
+}
+
+.gallery__like-btn:active {
+  background: url(../../../images/active-like-icon.svg);
+}
+
+@media (min-width: 1100px) {
+  .gallery__like-btn:hover {
+    opacity: .5;
+  }
 }

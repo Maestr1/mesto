@@ -4,3 +4,11 @@
   font-size: 18px;
   color: #545454;
 }
+
+@media (max-width: 960px) {
+  .footer {
+    padding-top: 48px;
+    padding-bottom: 36px;
+    font-size: 14px;
+  }
+}

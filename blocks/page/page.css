@@ -10,3 +10,10 @@
   background-color: #000;
   color: #fff;
 }
+
+@media (max-width: 960px) {
+  .page {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

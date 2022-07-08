@@ -6,3 +6,11 @@
   font-weight: 500;
   line-height: 1.14;
 }
+
+@media (max-width: 1100px) {
+  .profile__name {
+    padding-left: 27px;
+    font-size: 27px;
+    margin-right: 10px;
+  }
+}
