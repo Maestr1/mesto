@@ -2,8 +2,8 @@
   margin: 0 auto;
   padding-top: 45px;
   padding-bottom: 37px;
-  border-bottom: 1px solid #545454b3;;
-} 
+  border-bottom: 1px solid #545454b3;
+}
 
 @media (max-width: 960px) {
   .header {
