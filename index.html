@@ -16,7 +16,7 @@
   <main>
     <section class="profile container">
       <div class="profile__wrap">
-        <img src="./images/Avatar.png" alt="Фото пользователя">
+        <img class="profile__avatar" src="./images/Avatar.png" alt="Фото пользователя">
         <div class="profile__desc">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__job">Исследователь океана</p>
@@ -69,20 +69,20 @@
         </div>
       </div>
     </section>
-    <section class="popup">
+    <div class="popup">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form">
-          <input type="text" name="name" placeholder="Имя" class="popup__input popup__name" />
-          <input type="text" name="prof" placeholder="Профессия" class="popup__input popup__job" />
-          <button class="popup__save-btn">Сохранить</button>
+          <input type="text" name="name" placeholder="Имя" class="popup__input popup__input_type_name" />
+          <input type="text" name="prof" placeholder="Профессия" class="popup__input popup__input_type_job" />
+          <button class="popup__save-btn" type="submit">Сохранить</button>
         </form>
         <button class="popup__close-btn"></button>
       </div>
-    </section>
+    </div>
   </main>
   <footer class="footer container">
-    &copy; 2020 Mesto Russia
+    <small class="footer__copy">&copy; 2020 Mesto Russia</small>
   </footer>
   <script src="./scripts/script.js"></script>
 </body>
