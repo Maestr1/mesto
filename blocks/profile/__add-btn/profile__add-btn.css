@@ -1,6 +1,6 @@
 .profile__add-btn {
   flex-shrink: 0;
-  margin-left: 130px;
+  margin-left: 15px;
   padding: 0;
   width: 150px;
   height: 50px;
@@ -17,13 +17,7 @@
   }
 }
 
-@media (max-width: 1100px) {
-  .profile__add-btn {
-    margin-left: 60px;
-  }
-}
-
-@media (max-width: 960px) {
+@media (max-width: 767px) {
   .profile__add-btn {
     margin-top: 33px;
     margin-left: 0;

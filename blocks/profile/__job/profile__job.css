@@ -5,13 +5,13 @@
 }
 
 @media (max-width: 1100px) {
-  .profile__prof {
+  .profile__job {
     font-size: 14px;
   }
 }
 
-@media (max-width: 960px) {
-  .profile__prof {
+@media (max-width: 767px) {
+  .profile__job {
     text-align: center;
   }
 }
