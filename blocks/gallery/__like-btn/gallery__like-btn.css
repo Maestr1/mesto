@@ -1,4 +1,5 @@
 .gallery__like-btn {
+  cursor: pointer;
   padding: 0;
   padding-left: 22px;
   width: 22px;
