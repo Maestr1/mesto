@@ -8,22 +8,19 @@ let closeBtn = document.querySelector('.popup__close-btn');
 
 // Функция управляет открытием попапа
 function popupOpen() {
-  editBtn.addEventListener('click', function (event) {
-    popup.classList.add('popup_opened'); //добавляем класс открытия
-    formName.value = profileName.textContent; //присваиваем значения полям в попапе
-    formJob.value = profileJob.textContent; //каждый раз при открытии
-  });
+  popup.classList.add('popup_opened'); //добавляем класс открытия
+  formName.value = profileName.textContent; //присваиваем значения полям в попапе, каждый раз при открытии
+  formJob.value = profileJob.textContent;
 }
 
 // Функция управляет закрытием попапа
 function popupClose() {
-  closeBtn.addEventListener('click', function (event) {
     popup.classList.remove('popup_opened'); //убираем класс открытия
-  });
 }
 
-popupOpen()
-popupClose()
+//Вешаем слушатель кликов на кнопки
+editBtn.addEventListener('click', popupOpen);
+closeBtn.addEventListener('click', popupClose)
 
 let formElement = document.querySelector('.popup__form');
 
@@ -37,7 +34,7 @@ function formSubmitHandler(evt) {
   profileName.textContent = nameValue; //присваеваем элементам в профиле
   profileJob.textContent = jobValue;
 
-  popup.classList.remove('popup_opened'); //закрываем попап
+  popupClose(); //закрываем попап
 }
 
 formElement.addEventListener('submit', formSubmitHandler); //функция срабатывает по событию "submit"
