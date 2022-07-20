@@ -26,50 +26,7 @@
       <button class="btn profile__add-btn"></button>
     </section>
     <section>
-      <ul class="gallery container">
-        <li class="gallery__card">
-          <img src="./images/antalia.jpg" alt="Море внизу скал" class="gallery__pic">
-          <div class="gallery__desc">
-            <h2 class="gallery__title">Анталия</h2>
-            <button class="gallery__like-btn"></button>
-          </div>
-        </li>
-        <li class="gallery__card">
-          <img src="./images/budapest.jpg" alt="Трамвай в Будапеште" class="gallery__pic">
-          <div class="gallery__desc">
-            <h2 class="gallery__title">Будапешт</h2>
-            <button class="gallery__like-btn"></button>
-          </div>
-        </li>
-        <li class="gallery__card">
-          <img src="./images/sochi.jpg" alt="Роза Пик" class="gallery__pic">
-          <div class="gallery__desc">
-            <h2 class="gallery__title">Красная поляна</h2>
-            <button class="gallery__like-btn"></button>
-          </div>
-        </li>
-        <li class="gallery__card">
-          <img src="./images/Elbrus.jpg" alt="Гора Эльбрус из далека" class="gallery__pic">
-          <div class="gallery__desc">
-            <h2 class="gallery__title">Гора Эльбрус</h2>
-            <button class="gallery__like-btn"></button>
-          </div>
-        </li>
-        <li class="gallery__card">
-          <img src="./images/Dombai.jpg" alt="Гора Домбай" class="gallery__pic">
-          <div class="gallery__desc">
-            <h2 class="gallery__title">Домбай</h2>
-            <button class="gallery__like-btn"></button>
-          </div>
-        </li>
-        <li class="gallery__card">
-          <img src="./images/Karachaevsk.jpg" alt="Церковь в Карачаево-Черкесии" class="gallery__pic">
-          <div class="gallery__desc">
-            <h2 class="gallery__title">Карачаево-Черкесия</h2>
-            <button class="gallery__like-btn"></button>
-          </div>
-        </li>
-      </ul>
+      <ul class="gallery container"></ul>
     </section>
     <div class="popup">
       <div class="popup__container">
@@ -86,6 +43,15 @@
   <footer class="footer container">
     <small class="footer__copy">&copy; 2020 Mesto Russia</small>
   </footer>
+  <template class="card-template">
+    <li class="gallery__card">
+      <img class="gallery__pic">
+      <div class="gallery__desc">
+        <h2 class="gallery__title"></h2>
+        <button class="gallery__like-btn"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/script.js"></script>
 </body>
 

@@ -1,3 +1,5 @@
+//////////////Работа с попапом//////////////
+
 let popup = document.querySelector('.popup');
 let profileName = document.querySelector('.profile__name');
 let profileJob = document.querySelector('.profile__job');
@@ -15,12 +17,12 @@ function popupOpen() {
 
 // Функция управляет закрытием попапа
 function popupClose() {
-    popup.classList.remove('popup_opened'); //убираем класс открытия
+  popup.classList.remove('popup_opened'); //убираем класс открытия
 }
 
 //Вешаем слушатель кликов на кнопки
 editBtn.addEventListener('click', popupOpen);
-closeBtn.addEventListener('click', popupClose)
+closeBtn.addEventListener('click', popupClose);
 
 let formElement = document.querySelector('.popup__form');
 
@@ -38,3 +40,55 @@ function formSubmitHandler(evt) {
 }
 
 formElement.addEventListener('submit', formSubmitHandler); //функция срабатывает по событию "submit"
+
+//////////////Загрузка карточек//////////////
+
+const cardArr = [
+  {
+    name: 'Анталия',
+    link: './images/antalia.jpg',
+    alt: 'Море внизу скал',
+  },
+  {
+    name: 'Будапешт',
+    link: './images/budapest.jpg',
+    alt: 'Трамвай в Будапеште',
+  },
+  {
+    name: 'Карачаево-Черкесия',
+    link: './images/Karachaevsk.jpg',
+    alt: 'ТЦерковь в Карачаево-Черкесии',
+  },
+  {
+    name: 'Красная поляна',
+    link: './images/sochi.jpg',
+    alt: 'Роза Пик',
+  },
+  {
+    name: 'Гора Эльбрус',
+    link: './images/Elbrus.jpg',
+    alt: 'Гора Эльбрус из далека',
+  },
+  {
+    name: 'Домбай',
+    link: './images/Dombai.jpg',
+    alt: 'Гора Домбай',
+  },
+];
+
+const gallery = document.querySelector('.gallery');
+const cardTemplate = document.querySelector('.card-template').content;//сохраняем в переменную содержание тега
+
+function cardLoad(array) {
+  for (let i = 0; i < array.length; i++) {
+    let cardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);//клонируем узел с содержимым
+    cardElement.querySelector('.gallery__pic').src = array[i].link;//задаем атрибуты из объекта в массиве
+    cardElement.querySelector('.gallery__pic').alt = array[i].alt;
+    cardElement.querySelector('.gallery__title').textContent = array[i].name;
+    gallery.append(cardElement);//вставляем заполненный шаблон в DOM
+  }
+}
+
+cardLoad(cardArr)
+
+//////////////  //////////////
