@@ -2,6 +2,7 @@
 
 const popupEdit = document.querySelector('#popupEdit');
 const popupAdd = document.querySelector('#popupAdd');
+const popupZoom = document.querySelector('#popupZoom');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const popupEditName = document.querySelector('#popupEditName');
@@ -11,6 +12,7 @@ const formLink = document.querySelector('#popupAddLink');
 const editBtn = document.querySelector('.profile__edit-btn');
 const popupEditCloseBtn = popupEdit.querySelector('.popup__close-btn');
 const popupAddCloseBtn = popupAdd.querySelector('.popup__close-btn');
+const popupZoomCloseBtn = popupZoom.querySelector('.popup__close-btn');
 const addBtn = document.querySelector('.profile__add-btn');
 
 // Функция управляет открытием попапа
@@ -20,10 +22,11 @@ function openPopup(popup) {
     //если открывается попап редактирования подставляем значения при открытии
     popupEditName.value = profileName.textContent;
     formJob.value = profileJob.textContent;
-  } if (popup === popupAdd) {
+  }
+  if (popup === popupAdd) {
     //если открывается попап добавления, очищаем значения, которые могли остаться от предыдущего добавения
-    popupAddName.value = ''
-    formLink.value = ''
+    popupAddName.value = '';
+    formLink.value = '';
   }
 }
 
@@ -109,10 +112,10 @@ function cloneCard() {
   const removeBtn = cardElement.querySelector('.gallery__remove-btn');
   const likeBtn = cardElement.querySelector('.gallery__like-btn');
   const imageBtn = cardElement.querySelector('.gallery__pic');
-  removeBtn.addEventListener('click', removeCard, {once: true});
-  likeBtn.addEventListener('click', likeCard);
+  removeBtn.addEventListener('click', removeCard, { once: true });
+  //likeBtn.addEventListener('click', likeCard);
   imageBtn.addEventListener('click', zoomImage);
-  return cardElement  
+  return cardElement;
 }
 
 // Функция клонирует карточку и заполняет карточку данными из объекта
@@ -133,7 +136,6 @@ function loadCard(arr) {
 }
 
 loadCard(cardArr);
-
 
 //////////////Добавление карточек из формы//////////////
 
@@ -161,3 +163,12 @@ function removeCard(el) {
 //Функция ставит лайк
 
 //Функция открывает попап с увеличенным изображением
+const zoomPic = document.querySelector('.popup__zoom-pic')
+
+function zoomImage(el) {
+  zoomPic.src = el.target.src
+  openPopup(popupZoom)
+}
+popupZoomCloseBtn.addEventListener('click', () => {
+  closePopup(popupZoom);
+});
