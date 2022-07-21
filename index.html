@@ -28,23 +28,23 @@
     <section>
       <ul class="gallery container"></ul>
     </section>
-    <div class="popup popup_type_edit-profile">
+    <div class="popup" id="popupEdit">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form">
-          <input type="text" name="name" placeholder="Имя" class="popup__input popup__input_type_name" />
-          <input type="text" name="prof" placeholder="Профессия" class="popup__input popup__input_type_job" />
+          <input type="text" name="name" placeholder="Имя" class="popup__input" id="popupEditName"/>
+          <input type="text" name="prof" placeholder="Профессия" class="popup__input" id="popupEditJob"/>
           <button class="popup__save-btn" type="submit">Сохранить</button>
         </form>
         <button class="popup__close-btn"></button>
       </div>
     </div>
-    <div class="popup popup_type_add-place">
+    <div class="popup" id="popupAdd">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form">
-          <input type="text" name="name" placeholder="Название" class="popup__input popup__input_type_name" />
-          <input type="text" name="link" placeholder="Ссылка на картинку" class="popup__input popup__input_type_job" />
+          <input type="text" name="name" placeholder="Название" class="popup__input" id="popupAddName"/>
+          <input type="text" name="link" placeholder="Ссылка на картинку" class="popup__input" id="popupAddLink"/>
           <button class="popup__save-btn" type="submit">Создать</button>
         </form>
         <button class="popup__close-btn"></button>
@@ -57,6 +57,7 @@
   <template class="card-template">
     <li class="gallery__card">
       <img class="gallery__pic">
+      <button class="gallery__remove-btn"></button>
       <div class="gallery__desc">
         <h2 class="gallery__title"></h2>
         <button class="gallery__like-btn"></button>
