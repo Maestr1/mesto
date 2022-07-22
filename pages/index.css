@@ -46,6 +46,7 @@
 @import url(../blocks/popup/_type/popup_type_zoom.css);
 @import url(../blocks/popup/__container/_type/popup__container_type_zoom.css);
 @import url(../blocks/popup/__zoom-pic/popup__zoom-pic.css);
+@import url(../blocks/popup/__desc/popup__desc.css);
 
 /* -----------------Footer styles----------------- */
 

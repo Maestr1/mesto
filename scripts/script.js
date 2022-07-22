@@ -140,6 +140,7 @@ function addCardHandler(evt) {
   cloneCard();
   //задаем элементам шаблона атрибуты из формы
   cardElement.querySelector('.gallery__pic').src = formLink.value;
+  cardElement.querySelector('.gallery__pic').alt = `На изображении ${popupAddName.value}`;
   cardElement.querySelector('.gallery__title').textContent = popupAddName.value;
 
   gallery.prepend(cardElement);
@@ -164,9 +165,12 @@ function likeCard(el) {
 
 //Функция открывает попап с увеличенным изображением
 const zoomPic = document.querySelector('.popup__zoom-pic');
-
+const zoomDesc = document.querySelector('.popup__desc')
 function zoomImage(el) {
   zoomPic.src = el.target.src;
+  zoomPic.alt = el.target.alt;
+  zoomDesc.textContent = el.target.closest('.gallery__card').querySelector('.gallery__title').textContent
+
   openPopup(popupZoom);
 }
 popupZoomCloseBtn.addEventListener('click', () => {
