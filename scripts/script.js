@@ -18,16 +18,6 @@ const addBtn = document.querySelector('.profile__add-btn');
 // Функция управляет открытием попапа
 function openPopup(popup) {
   popup.classList.add('popup_opened'); //добавляем класс открытия
-  if (popup === popupEdit) {
-    //если открывается попап редактирования подставляем значения при открытии
-    popupEditName.value = profileName.textContent;
-    formJob.value = profileJob.textContent;
-  }
-  if (popup === popupAdd) {
-    //если открывается попап добавления, очищаем значения, которые могли остаться от предыдущего добавения
-    popupAddName.value = '';
-    formLink.value = '';
-  }
 }
 
 // Функция управляет закрытием попапа
@@ -37,12 +27,18 @@ function closePopup(popup) {
 
 //Вешаем слушатель кликов на кнопки
 editBtn.addEventListener('click', () => {
+  //подставляем значения при открытии
+  popupEditName.value = profileName.textContent;
+  formJob.value = profileJob.textContent;
   openPopup(popupEdit);
 });
 popupEditCloseBtn.addEventListener('click', () => {
   closePopup(popupEdit);
 });
 addBtn.addEventListener('click', () => {
+  //очищаем значения, которые могли остаться от предыдущего добавения
+  popupAddName.value = '';
+  formLink.value = '';
   openPopup(popupAdd);
 });
 popupAddCloseBtn.addEventListener('click', () => {
@@ -113,7 +109,7 @@ function cloneCard() {
   const likeBtn = cardElement.querySelector('.gallery__like-btn');
   const imageBtn = cardElement.querySelector('.gallery__pic');
   removeBtn.addEventListener('click', removeCard, { once: true });
-  //likeBtn.addEventListener('click', likeCard);
+  likeBtn.addEventListener('click', likeCard);
   imageBtn.addEventListener('click', zoomImage);
   return cardElement;
 }
@@ -162,12 +158,16 @@ function removeCard(el) {
 
 //Функция ставит лайк
 
+function likeCard(el) {
+  el.target.classList.toggle('gallery__like-btn_active');
+}
+
 //Функция открывает попап с увеличенным изображением
-const zoomPic = document.querySelector('.popup__zoom-pic')
+const zoomPic = document.querySelector('.popup__zoom-pic');
 
 function zoomImage(el) {
-  zoomPic.src = el.target.src
-  openPopup(popupZoom)
+  zoomPic.src = el.target.src;
+  openPopup(popupZoom);
 }
 popupZoomCloseBtn.addEventListener('click', () => {
   closePopup(popupZoom);
