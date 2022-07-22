@@ -1,8 +1,6 @@
 .popup__container_type_zoom {
   padding: 0;
   width: inherit;
-  max-width: 75vw;
-  max-height: 75vh;
   background-color: transparent;
   border-radius: 0;
 }
