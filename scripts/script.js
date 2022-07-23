@@ -97,20 +97,20 @@ const cardArr = [
     alt: 'Гора Домбай',
   },
 ];
+//Функция клонирует узел с содержимым, добавляет слушатели на кнопки
 
 const gallery = document.querySelector('.gallery');
 const cardTemplate = document.querySelector('.card-template').content; //сохраняем в переменную содержимое тега
 let cardElement; //пустая переменная для хранения шаблона
 
-//Функция клонирует узел с содержимым, добавляет слушатели на кнопки
 function cloneCard() {
   cardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);
   const removeBtn = cardElement.querySelector('.gallery__remove-btn');
   const likeBtn = cardElement.querySelector('.gallery__like-btn');
-  const imageBtn = cardElement.querySelector('.gallery__pic');
+  const galleryPic = cardElement.querySelector('.gallery__pic');
   removeBtn.addEventListener('click', removeCard, { once: true });
   likeBtn.addEventListener('click', likeCard);
-  imageBtn.addEventListener('click', zoomImage);
+  galleryPic.addEventListener('click', zoomImage);
   return cardElement;
 }
 
@@ -166,6 +166,7 @@ function likeCard(el) {
 //Функция открывает попап с увеличенным изображением
 const zoomPic = document.querySelector('.popup__zoom-pic');
 const zoomDesc = document.querySelector('.popup__desc')
+
 function zoomImage(el) {
   zoomPic.src = el.target.src;
   zoomPic.alt = el.target.alt;
