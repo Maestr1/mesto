@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b776f564-f552-4654-ad5e-4f26e143ae96" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/blocks/gallery/__like-btn/gallery__like-btn.css" beforeDir="false" afterPath="$PROJECT_DIR$/blocks/gallery/__like-btn/gallery__like-btn.css" afterDir="false" />
+    <list default="true" id="b99f112e-4a98-4956-87ba-6803312f2300" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blocks/gallery/__card/gallery__card.css" beforeDir="false" afterPath="$PROJECT_DIR$/blocks/gallery/__card/gallery__card.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blocks/gallery/__pic/gallery__pic.css" beforeDir="false" afterPath="$PROJECT_DIR$/blocks/gallery/__pic/gallery__pic.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blocks/popup/__container/popup__container.css" beforeDir="false" afterPath="$PROJECT_DIR$/blocks/popup/__container/popup__container.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/script.js" afterDir="false" />
     </list>
@@ -12,20 +17,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="develope/js-cards" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectId" id="2CDd0IuRGnCI6Y9vEZ24i1V6fN6" />
+  <component name="ProjectId" id="2COBgnJ6OthyqKwindwUqGh3PyI" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -36,49 +33,25 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/FE/YP/mesto",
-    "settings.editor.selected.configurable": "reference.idesettings.emmet.xml",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "Settings.JavaScript.Linters.JSHint",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b776f564-f552-4654-ad5e-4f26e143ae96" name="Changes" comment="" />
-      <created>1658340866168</created>
+      <changelist id="b99f112e-4a98-4956-87ba-6803312f2300" name="Changes" comment="" />
+      <created>1658663869168</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1658340866168</updated>
-      <workItem from="1658340869600" duration="2854000" />
-      <workItem from="1658492419794" duration="646000" />
+      <updated>1658663869168</updated>
+      <workItem from="1658663872425" duration="4460000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="main" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

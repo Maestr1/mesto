@@ -1,19 +1,19 @@
 //////////////Работа с попапом//////////////
 
-const popupEdit = document.querySelector('#popupEdit');
-const popupAdd = document.querySelector('#popupAdd');
-const popupZoom = document.querySelector('#popupZoom');
+const popupProfileEdit = document.querySelector('#popup-edit');
+const popupPlaceAdd = document.querySelector('#popup-add');
+const popupZoom = document.querySelector('#popup-zoom');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
-const popupEditName = document.querySelector('#popupEditName');
-const popupAddName = document.querySelector('#popupAddName');
-const formJob = document.querySelector('#popupEditJob');
-const formLink = document.querySelector('#popupAddLink');
-const editBtn = document.querySelector('.profile__edit-btn');
-const popupEditCloseBtn = popupEdit.querySelector('.popup__close-btn');
-const popupAddCloseBtn = popupAdd.querySelector('.popup__close-btn');
-const popupZoomCloseBtn = popupZoom.querySelector('.popup__close-btn');
-const addBtn = document.querySelector('.profile__add-btn');
+const popupProfileEditNameInput = document.querySelector('#popup-edit-input-name'); //Поле ввода имени
+const popupProfileEditJobInput = document.querySelector('#popup-edit-input-job'); //Поле ввода профессии
+const popupPlaceAddNameInput = document.querySelector('#popup-add-input-name'); //Поле ввода имени
+const popupPlaceAddLinkInput = document.querySelector('#popup-add-input-link'); //Поле ввода ссылки на изображение
+const profileEditBtn = document.querySelector('.profile__edit-btn'); //Кнопка редактирования профиля
+const popupProfileEditCloseBtn = popupProfileEdit.querySelector('.popup__close-btn');//Кнопка закрытия попапа
+const popupPlaceAddCloseBtn = popupPlaceAdd.querySelector('.popup__close-btn');//Кнопка закрытия попапа
+const popupZoomCloseBtn = popupZoom.querySelector('.popup__close-btn');//Кнопка закрытия попапа
+const placeAddBtn = document.querySelector('.profile__add-btn');//Кнопка добавления места
 
 // Функция управляет открытием попапа
 function openPopup(popup) {
@@ -26,41 +26,40 @@ function closePopup(popup) {
 }
 
 //Вешаем слушатель кликов на кнопки
-editBtn.addEventListener('click', () => {
+profileEditBtn.addEventListener('click', () => {
   //подставляем значения при открытии
-  popupEditName.value = profileName.textContent;
-  formJob.value = profileJob.textContent;
-  openPopup(popupEdit);
+  popupProfileEditNameInput.value = profileName.textContent;
+  popupProfileEditJobInput.value = profileJob.textContent;
+  openPopup(popupProfileEdit);
 });
-popupEditCloseBtn.addEventListener('click', () => {
-  closePopup(popupEdit);
+popupProfileEditCloseBtn.addEventListener('click', () => {
+  closePopup(popupProfileEdit);
 });
-addBtn.addEventListener('click', () => {
+placeAddBtn.addEventListener('click', () => {
   //очищаем значения, которые могли остаться от предыдущего добавения
-  popupAddName.value = '';
-  formLink.value = '';
-  openPopup(popupAdd);
+  popupPlaceAddNameInput.closest('.popup__form').reset()
+  openPopup(popupPlaceAdd);
 });
-popupAddCloseBtn.addEventListener('click', () => {
-  closePopup(popupAdd);
+popupPlaceAddCloseBtn.addEventListener('click', () => {
+  closePopup(popupPlaceAdd);
 });
 
-const editFormElement = popupEdit.querySelector('.popup__form');
-const addFormElement = popupAdd.querySelector('.popup__form');
+const profileEditForm = popupProfileEdit.querySelector('.popup__form');
+const placeAddForm = popupPlaceAdd.querySelector('.popup__form');
 // Функция управляет сохранением данных в строках профиля
-function formSubmitHandler(evt) {
+function handlesProfileEditFormSubmit(evt) {
   evt.preventDefault(); //отменяем действие по умолчанию (перезагрузка страницы при отправке)
 
-  const nameValue = popupEditName.value; //берем значение полей формы
-  const jobValue = formJob.value;
+  const nameValue = popupProfileEditNameInput.value; //берем значение полей формы
+  const jobValue = popupProfileEditJobInput.value;
 
   profileName.textContent = nameValue; //присваеваем элементам в профиле
   profileJob.textContent = jobValue;
 
-  closePopup(popupEdit); //закрываем попап
+  closePopup(popupProfileEdit); //закрываем попап
 }
 
-editFormElement.addEventListener('submit', formSubmitHandler); //функция срабатывает по событию "submit"
+profileEditForm.addEventListener('submit', handlesProfileEditFormSubmit); //функция срабатывает по событию "submit"
 
 //////////////Загрузка карточек//////////////
 
@@ -135,20 +134,20 @@ loadCard(cardArr);
 
 //////////////Добавление карточек из формы//////////////
 
-function addCardHandler(evt) {
+function handlesPlaceAddFormSubmit(evt) {
   evt.preventDefault();
   cloneCard();
   //задаем элементам шаблона атрибуты из формы
-  cardElement.querySelector('.gallery__pic').src = formLink.value;
-  cardElement.querySelector('.gallery__pic').alt = `На изображении ${popupAddName.value}`;
-  cardElement.querySelector('.gallery__title').textContent = popupAddName.value;
+  cardElement.querySelector('.gallery__pic').src = popupPlaceAddLinkInput.value;
+  cardElement.querySelector('.gallery__pic').alt = `На изображении ${popupPlaceAddNameInput.value}`;
+  cardElement.querySelector('.gallery__title').textContent = popupPlaceAddNameInput.value;
 
   gallery.prepend(cardElement);
 
-  closePopup(popupAdd); //закрываем попап
+  closePopup(popupPlaceAdd); //закрываем попап
 }
 
-addFormElement.addEventListener('submit', addCardHandler);
+placeAddForm.addEventListener('submit', handlesPlaceAddFormSubmit);
 
 //////////////Взаимодействия с карточками//////////////
 

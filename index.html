@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
   <link rel="stylesheet" href="./pages/index.css">
+  <script defer src="./scripts/script.js"></script>
 </head>
 
 <body class="page">
@@ -20,40 +21,44 @@
         <div class="profile__desc">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__job">Исследователь океана</p>
-          <button class="btn profile__edit-btn"></button>
+          <button class="btn profile__edit-btn" aria-label="Редактировать профиль"></button>
         </div>
       </div>
-      <button class="btn profile__add-btn"></button>
+      <button class="btn profile__add-btn" aria-label="Добавить место"></button>
     </section>
     <section>
       <ul class="gallery container"></ul>
     </section>
-    <div class="popup" id="popupEdit">
+    <div class="popup" id="popup-edit">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form">
-          <input type="text" name="name" placeholder="Имя" class="popup__input" id="popupEditName"/>
-          <input type="text" name="prof" placeholder="Профессия" class="popup__input" id="popupEditJob"/>
+          <input required type="text" name="name" placeholder="Имя" class="popup__input"
+            id="popup-edit-input-name" />
+          <input required type="text" name="job" placeholder="Профессия" class="popup__input"
+            id="popup-edit-input-job" />
           <button class="popup__save-btn" type="submit">Сохранить</button>
         </form>
-        <button class="popup__close-btn"></button>
+        <button class="popup__close-btn" aria-label="Закрыть"></button>
       </div>
     </div>
-    <div class="popup" id="popupAdd">
+    <div class="popup" id="popup-add">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form">
-          <input type="text" name="name" placeholder="Название" class="popup__input" id="popupAddName"/>
-          <input type="text" name="link" placeholder="Ссылка на картинку" class="popup__input" id="popupAddLink"/>
+        <form class="popup__form" id="form">
+          <input required type="text" name="name" placeholder="Название" class="popup__input"
+            id="popup-add-input-name" />
+          <input required type="url" name="link" placeholder="Ссылка на картинку" class="popup__input"
+            id="popup-add-input-link" />
           <button class="popup__save-btn" type="submit">Создать</button>
         </form>
-        <button class="popup__close-btn"></button>
+        <button class="popup__close-btn" aria-label="Закрыть"></button>
       </div>
     </div>
-    <div class="popup popup_type_zoom" id="popupZoom">
+    <div class="popup popup_type_zoom" id="popup-zoom">
       <div class="popup__container popup__container_type_zoom">
         <img class="popup__zoom-pic" src="#" alt="">
-        <button class="popup__close-btn"></button>
+        <button class="popup__close-btn" aria-label="Закрыть"></button>
         <p class="popup__desc"></p>
       </div>
     </div>
@@ -64,14 +69,13 @@
   <template class="card-template">
     <li class="gallery__card">
       <img class="gallery__pic" src="#" alt="">
-      <button class="gallery__remove-btn"></button>
+      <button class="gallery__remove-btn" aria-label="Удалить место"></button>
       <div class="gallery__desc">
         <h2 class="gallery__title"></h2>
-        <button class="gallery__like-btn"></button>
+        <button class="gallery__like-btn" aria-label="Поставить лайк"></button>
       </div>
     </li>
   </template>
-  <script src="./scripts/script.js"></script>
 </body>
 
 </html>

@@ -31,6 +31,7 @@
 @import url(../blocks/gallery/__title/gallery__title.css);
 @import url(../blocks/gallery/__like-btn/gallery__like-btn.css);
 @import url(../blocks/gallery/__like-btn/_active/gallery__like-btn_active.css);
+@import url(../blocks/gallery/__like-btn);
 @import url(../blocks/gallery/__remove-btn/gallery__remove-btn.css);
 
 /* -----------------Popup styles----------------- */

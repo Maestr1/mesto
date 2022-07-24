@@ -1,5 +1,7 @@
 .gallery__card {
   position: relative;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   font-size: 0;
   background-color: #fff;
