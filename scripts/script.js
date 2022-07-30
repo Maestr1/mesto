@@ -5,15 +5,20 @@ const popupPlaceAdd = document.querySelector('#popup-add');
 const popupZoom = document.querySelector('#popup-zoom');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
-const popupProfileEditNameInput = document.querySelector('#popup-edit-input-name'); //Поле ввода имени
-const popupProfileEditJobInput = document.querySelector('#popup-edit-input-job'); //Поле ввода профессии
+const popupProfileEditNameInput = document.querySelector(
+  '#popup-edit-input-name'
+); //Поле ввода имени
+const popupProfileEditJobInput = document.querySelector(
+  '#popup-edit-input-job'
+); //Поле ввода профессии
 const popupPlaceAddNameInput = document.querySelector('#popup-add-input-name'); //Поле ввода имени
 const popupPlaceAddLinkInput = document.querySelector('#popup-add-input-link'); //Поле ввода ссылки на изображение
 const profileEditBtn = document.querySelector('.profile__edit-btn'); //Кнопка редактирования профиля
-const popupProfileEditCloseBtn = popupProfileEdit.querySelector('.popup__close-btn');//Кнопка закрытия попапа
-const popupPlaceAddCloseBtn = popupPlaceAdd.querySelector('.popup__close-btn');//Кнопка закрытия попапа
-const popupZoomCloseBtn = popupZoom.querySelector('.popup__close-btn');//Кнопка закрытия попапа
-const placeAddBtn = document.querySelector('.profile__add-btn');//Кнопка добавления места
+const popupProfileEditCloseBtn =
+  popupProfileEdit.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
+const popupPlaceAddCloseBtn = popupPlaceAdd.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
+const popupZoomCloseBtn = popupZoom.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
+const placeAddBtn = document.querySelector('.profile__add-btn'); //Кнопка добавления места
 
 // Функция управляет открытием попапа
 function openPopup(popup) {
@@ -37,7 +42,7 @@ popupProfileEditCloseBtn.addEventListener('click', () => {
 });
 placeAddBtn.addEventListener('click', () => {
   //очищаем значения, которые могли остаться от предыдущего добавения
-  popupPlaceAddNameInput.closest('.popup__form').reset()
+  popupPlaceAddNameInput.closest('.popup__form').reset();
   openPopup(popupPlaceAdd);
 });
 popupPlaceAddCloseBtn.addEventListener('click', () => {
@@ -96,58 +101,75 @@ const cardArr = [
     alt: 'Гора Домбай',
   },
 ];
-//Функция клонирует узел с содержимым, добавляет слушатели на кнопки
 
+//Функция клонирует узел с содержимым, добавляет слушатели на кнопки
 const gallery = document.querySelector('.gallery');
 const cardTemplate = document.querySelector('.card-template').content; //сохраняем в переменную содержимое тега
-let cardElement; //пустая переменная для хранения шаблона
+const galleryCard = cardTemplate.querySelector('.gallery__card'); //сохраняем в переменную карточку
 
-function cloneCard() {
-  cardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);
-  const removeBtn = cardElement.querySelector('.gallery__remove-btn');
-  const likeBtn = cardElement.querySelector('.gallery__like-btn');
-  const galleryPic = cardElement.querySelector('.gallery__pic');
+function cloneCard(name, link, alt) {
+  const clonedCard = galleryCard.cloneNode(true);
+  const removeBtn = clonedCard.querySelector('.gallery__remove-btn');
+  const likeBtn = clonedCard.querySelector('.gallery__like-btn');
+  const cardPic = clonedCard.querySelector('.gallery__pic');
+  const cardTitle = clonedCard.querySelector('.gallery__title')
+  //запоняем атрибуты данными с входа фукции
+  cardTitle.textContent = name;
+  cardPic.src = link;
+  cardPic.alt = alt;
+  //вешаем обработчики по клику на кнопки карточки
   removeBtn.addEventListener('click', removeCard, { once: true });
   likeBtn.addEventListener('click', likeCard);
-  galleryPic.addEventListener('click', zoomImage);
-  return cardElement;
+  cardPic.addEventListener('click', zoomImage);
+  return clonedCard; //возвращаем заполненную карточку
+}
+
+
+//Фукция загружает карточки из массива
+function loadCard(arr) {
+  arr.forEach(element => {
+    
+  });
 }
 
 // Функция клонирует карточку и заполняет карточку данными из объекта
-function prepareCard(array, i) {
-  cloneCard();
-  //задаем элементам шаблона атрибуты из объекта в массиве
-  cardElement.querySelector('.gallery__pic').src = array[i].link;
-  cardElement.querySelector('.gallery__pic').alt = array[i].alt;
-  cardElement.querySelector('.gallery__title').textContent = array[i].name;
-}
+// function prepareCard(array, i) {
+//   const preparedCard = cloneCard();
+//   const cardPic = preparedCard.querySelector('.gallery__pic');
+//   //задаем элементам шаблона атрибуты из объекта в массиве
+//   cardPic.src = array[i].link;
+//   cardPic.alt = array[i].alt;
+//   preparedCard.querySelector('.gallery__title').textContent = array[i].name;
+//   return preparedCard;
+// }
 
 // Функция помещает подготовленную карточку на страницу
-function loadCard(arr) {
-  for (let x = 0; x < arr.length; x++) {
-    prepareCard(arr, x); //заполняем клонированый шаблон
-    gallery.append(cardElement); //вставляем заполненный шаблон в DOM
-  }
-}
+// function loadCard(arr) {
+//   for (let x = 0; x < arr.length; x++) {
+//     const loadedCard = cloneCard(arr, x); //заполняем клонированый шаблон
+//     gallery.append(loadedCard); //вставляем заполненный шаблон в DOM
+//   }
+// }
 
-loadCard(cardArr);
+// loadCard(cardArr);
 
 //////////////Добавление карточек из формы//////////////
 
-function handlesPlaceAddFormSubmit(evt) {
-  evt.preventDefault();
-  cloneCard();
-  //задаем элементам шаблона атрибуты из формы
-  cardElement.querySelector('.gallery__pic').src = popupPlaceAddLinkInput.value;
-  cardElement.querySelector('.gallery__pic').alt = `На изображении ${popupPlaceAddNameInput.value}`;
-  cardElement.querySelector('.gallery__title').textContent = popupPlaceAddNameInput.value;
+// function handlesPlaceAddFormSubmit(evt) {
+//   evt.preventDefault();
+//   const preparedCard = cloneCard();
+//   const cardPic = preparedCard.querySelector('.gallery__pic');
+//   //задаем элементам шаблона атрибуты из формы
+//   cardPic.src = popupPlaceAddLinkInput.value;
+//   cardPic.alt = `На изображении ${popupPlaceAddNameInput.value}`;
+//   preparedCard.querySelector('.gallery__title').textContent = popupPlaceAddNameInput.value;
 
-  gallery.prepend(cardElement);
+//   gallery.prepend(preparedCard);
 
-  closePopup(popupPlaceAdd); //закрываем попап
-}
+//   closePopup(popupPlaceAdd); //закрываем попап
+// }
 
-placeAddForm.addEventListener('submit', handlesPlaceAddFormSubmit);
+// placeAddForm.addEventListener('submit', handlesPlaceAddFormSubmit);
 
 //////////////Взаимодействия с карточками//////////////
 
@@ -164,12 +186,14 @@ function likeCard(el) {
 
 //Функция открывает попап с увеличенным изображением
 const zoomPic = document.querySelector('.popup__zoom-pic');
-const zoomDesc = document.querySelector('.popup__desc')
+const zoomDesc = document.querySelector('.popup__desc');
 
 function zoomImage(el) {
   zoomPic.src = el.target.src;
   zoomPic.alt = el.target.alt;
-  zoomDesc.textContent = el.target.closest('.gallery__card').querySelector('.gallery__title').textContent
+  zoomDesc.textContent = el.target
+    .closest('.gallery__card')
+    .querySelector('.gallery__title').textContent;
 
   openPopup(popupZoom);
 }
