@@ -14,6 +14,8 @@ const popupProfileEditCloseBtn = popupProfileEdit.querySelector('.popup__close-b
 const popupPlaceAddCloseBtn = popupPlaceAdd.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
 const popupZoomCloseBtn = popupZoom.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
 const placeAddBtn = document.querySelector('.profile__add-btn'); //Кнопка добавления места
+const placeAddForm = popupPlaceAdd.querySelector('.popup__form');
+const profileEditForm = popupProfileEdit.querySelector('.popup__form');
 
 // Функция управляет открытием попапа
 function openPopup(popup) {
@@ -37,15 +39,13 @@ popupProfileEditCloseBtn.addEventListener('click', () => {
 });
 placeAddBtn.addEventListener('click', () => {
   //очищаем значения, которые могли остаться от предыдущего добавения
-  popupPlaceAddNameInput.closest('.popup__form').reset();
+  placeAddForm.reset();
   openPopup(popupPlaceAdd);
 });
 popupPlaceAddCloseBtn.addEventListener('click', () => {
   closePopup(popupPlaceAdd);
 });
 
-const profileEditForm = popupProfileEdit.querySelector('.popup__form');
-const placeAddForm = popupPlaceAdd.querySelector('.popup__form');
 // Функция управляет сохранением данных в строках профиля
 function editProfileInfo(evt) {
   evt.preventDefault(); //отменяем действие по умолчанию (перезагрузка страницы при отправке)
@@ -67,33 +67,27 @@ profileEditForm.addEventListener('submit', editProfileInfo); //функция с
 const cardArr = [
   {
     name: 'Анталия',
-    link: './images/antalia.jpg',
-    alt: 'Море внизу скал',
+    link: './images/antalia.jpg'
   },
   {
     name: 'Будапешт',
-    link: './images/budapest.jpg',
-    alt: 'Трамвай в Будапеште',
+    link: './images/budapest.jpg'
   },
   {
     name: 'Карачаево-Черкесия',
-    link: './images/Karachaevsk.jpg',
-    alt: 'Церковь в Карачаево-Черкесии',
+    link: './images/Karachaevsk.jpg'
   },
   {
     name: 'Красная поляна',
-    link: './images/sochi.jpg',
-    alt: 'Роза Пик',
+    link: './images/sochi.jpg'
   },
   {
     name: 'Гора Эльбрус',
-    link: './images/Elbrus.jpg',
-    alt: 'Гора Эльбрус из далека',
+    link: './images/Elbrus.jpg'
   },
   {
     name: 'Домбай',
-    link: './images/Dombai.jpg',
-    alt: 'Гора Домбай',
+    link: './images/Dombai.jpg'
   },
 ];
 
@@ -102,16 +96,16 @@ const gallery = document.querySelector('.gallery');
 const cardTemplate = document.querySelector('.card-template').content; //сохраняем в переменную содержимое тега
 const galleryCard = cardTemplate.querySelector('.gallery__card'); //сохраняем в переменную карточку
 
-function cloneCard(name, link, alt) {
+function cloneCard(name, link) {
   const clonedCard = galleryCard.cloneNode(true);
   const removeBtn = clonedCard.querySelector('.gallery__remove-btn');
   const likeBtn = clonedCard.querySelector('.gallery__like-btn');
   const cardPic = clonedCard.querySelector('.gallery__pic');
-  const cardTitle = clonedCard.querySelector('.gallery__title')
+  const cardTitle = clonedCard.querySelector('.gallery__title');
   //запоняем атрибуты данными с входа фукции
   cardTitle.textContent = name;
   cardPic.src = link;
-  cardPic.alt = alt;
+  cardPic.alt = `На изображении ${name}`;;
   //вешаем обработчики по клику на кнопки карточки
   removeBtn.addEventListener('click', removeCard, { once: true });
   likeBtn.addEventListener('click', likeCard);
@@ -120,13 +114,13 @@ function cloneCard(name, link, alt) {
 }
 
 //Фукция загружает карточки из массива
-function loadCard(arr) {
+function loadCards(arr) {
   arr.forEach((item) => {
-    gallery.append(cloneCard(item.name, item.link, item.alt))
+    gallery.append(cloneCard(item.name, item.link));
   });
 }
-loadCard(cardArr)
 
+loadCards(cardArr);
 
 //////////////Добавление карточек из формы//////////////
 
@@ -134,13 +128,11 @@ function addCard(evt) {
   evt.preventDefault();
   const name = popupPlaceAddNameInput.value;
   const link = popupPlaceAddLinkInput.value;
-  const alt = `На изображении ${popupPlaceAddNameInput.value}`;
-  gallery.prepend(cloneCard(name, link, alt))
+  gallery.prepend(cloneCard(name, link));
   closePopup(popupPlaceAdd);
 }
 
 placeAddForm.addEventListener('submit', addCard);
-
 
 //////////////Взаимодействия с карточками//////////////
 

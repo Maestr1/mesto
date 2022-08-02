@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f530f221-4cb0-456e-a942-33dae9eb427f" name="Changes" comment="">
+    <list default="true" id="f530f221-4cb0-456e-a942-33dae9eb427f" name="Changes" comment="refactory: изменить скрипт работы с карточками">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,11 +51,35 @@
       <updated>1659203117624</updated>
       <workItem from="1659203119671" duration="24000" />
       <workItem from="1659203439296" duration="5024000" />
-      <workItem from="1659271757354" duration="1558000" />
+      <workItem from="1659271757354" duration="2207000" />
+      <workItem from="1659424960988" duration="664000" />
     </task>
+    <task id="LOCAL-00001" summary="refactory: изменить скрипт работы с карточками">
+      <created>1659273561695</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1659273561695</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="refactory: изменить скрипт работы с карточками" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactory: изменить скрипт работы с карточками" />
   </component>
 </project>
