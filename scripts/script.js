@@ -105,9 +105,9 @@ function cloneCard(name, link) {
   //запоняем атрибуты данными с входа фукции
   cardTitle.textContent = name;
   cardPic.src = link;
-  cardPic.alt = `На изображении ${name}`;;
+  cardPic.alt = `На изображении ${name}`;
   //вешаем обработчики по клику на кнопки карточки
-  removeBtn.addEventListener('click', removeCard, { once: true });
+  removeBtn.addEventListener('click', removeCard, {once: true});
   likeBtn.addEventListener('click', likeCard);
   cardPic.addEventListener('click', zoomImage);
   return clonedCard; //возвращаем заполненную карточку
@@ -160,6 +160,11 @@ function zoomImage(el) {
 
   openPopup(popupZoom);
 }
+
 popupZoomCloseBtn.addEventListener('click', () => {
   closePopup(popupZoom);
 });
+
+
+//TODO закрытия попапа кликом на оверлей и esc
+
