@@ -40,15 +40,17 @@
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__form/popup__form.css);
+@import url(../blocks/popup/__input-wrap/popup__input-wrap.css);
 @import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__input/_type/popup__input_type_error.css);
 @import url(../blocks/popup/__save-btn/popup__save-btn.css);
+@import url(../blocks/popup/__save-btn/_disable/popup__save-btn_disabled.css);
 @import url(../blocks/popup/__close-btn/popup__close-btn.css);
 @import url(../blocks/popup/_type/popup_type_zoom.css);
 @import url(../blocks/popup/__container/_type/popup__container_type_zoom.css);
 @import url(../blocks/popup/__zoom-pic/popup__zoom-pic.css);
 @import url(../blocks/popup/__desc/popup__desc.css);
 @import url(../blocks/popup/__input-error/popup__input-error.css);
-@import url(../blocks/popup/__save-btn/_disable/popup__save-btn_disable.css);
 
 /* -----------------Footer styles----------------- */
 

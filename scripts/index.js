@@ -32,6 +32,9 @@ profileEditBtn.addEventListener('click', () => {
   //подставляем значения при открытии
   popupProfileEditNameInput.value = profileName.textContent;
   popupProfileEditJobInput.value = profileJob.textContent;
+  let popupInputEvent = new Event('input')
+  popupProfileEditNameInput.dispatchEvent(popupInputEvent)
+  popupProfileEditJobInput.dispatchEvent(popupInputEvent)
   openPopup(popupProfileEdit);
 });
 popupProfileEditCloseBtn.addEventListener('click', () => {
