@@ -17,13 +17,44 @@ const placeAddBtn = document.querySelector('.profile__add-btn'); //Кнопка 
 const placeAddForm = popupPlaceAdd.querySelector('.popup__form');
 const profileEditForm = popupProfileEdit.querySelector('.popup__form');
 
+// Функция управляет зыкрытием попапа по нажатию 'esc'
+function closePopupFromEsc(evt, popup) {
+  if (evt.key === 'Escape') {
+    console.log('qwe')
+    closePopup(popup)
+  }
+}
+
+// Функция управляет зыкрытием попапа по клику на оверлей
+function closePopupFromOverlay() {
+  const popupList = Array.from(document.querySelectorAll('.popup'))
+  popupList.forEach(popup => {
+    popup.addEventListener('click', (evt) => {
+      closePopup(evt.target)
+    })
+  })
+}
+
+closePopupFromOverlay()
+function callClosePopupFromEsc(evt) {
+  closePopupFromEsc(evt, popup)
+}
 // Функция управляет открытием попапа
 function openPopup(popup) {
+
+  document.addEventListener('keydown', callClosePopupFromEsc)
+  // document.addEventListener('keydown', (evt) => {
+  //   closePopupFromEsc(evt, popup)
+  // }, {once: true})
   popup.classList.add('popup_opened'); //добавляем класс открытия
 }
 
 // Функция управляет закрытием попапа
 function closePopup(popup) {
+  // document.removeEventListener('keydown', (evt) => {
+  //   closePopupFromEsc(evt, popup)
+  // }, {once: true})
+  document.removeEventListener('keydown', callClosePopupFromEsc)
   popup.classList.remove('popup_opened'); //убираем класс открытия
 }
 
@@ -168,6 +199,4 @@ popupZoomCloseBtn.addEventListener('click', () => {
   closePopup(popupZoom);
 });
 
-
-//TODO закрытия попапа кликом на оверлей и esc
 
