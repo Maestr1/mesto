@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f530f221-4cb0-456e-a942-33dae9eb427f" name="Changes" comment="fix: исправить путь в index.css">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/validate.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/validate.js" afterDir="false" />
-    </list>
+    <list default="true" id="f530f221-4cb0-456e-a942-33dae9eb427f" name="Changes" comment="feat: добавить закрытие попапа по оверлею" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,7 +18,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="develope/validate" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -53,6 +48,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.index.js" />
+        <item itemvalue="Node.js.index.js" />
         <item itemvalue="Node.js.index.js" />
         <item itemvalue="Node.js.index.js" />
       </list>
@@ -86,7 +83,21 @@
       <option name="project" value="LOCAL" />
       <updated>1660478634137</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: добавить закрытие попапа по оверлею">
+      <created>1660594328673</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1660594328673</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: добавить закрытие попапа по оверлею">
+      <created>1660594501610</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1660594501610</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -97,7 +108,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="develope/validate" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -107,6 +130,7 @@
     <MESSAGE value="refactory: изменить скрипт работы с карточками" />
     <MESSAGE value="feat: добавить валидацию форм" />
     <MESSAGE value="feat: доработка валидации форм" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: доработка валидации форм" />
+    <MESSAGE value="feat: добавить закрытие попапа по оверлею" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: добавить закрытие попапа по оверлею" />
   </component>
 </project>

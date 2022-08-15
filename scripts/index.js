@@ -18,43 +18,33 @@ const placeAddForm = popupPlaceAdd.querySelector('.popup__form');
 const profileEditForm = popupProfileEdit.querySelector('.popup__form');
 
 // Функция управляет зыкрытием попапа по нажатию 'esc'
-function closePopupFromEsc(evt, popup) {
+function closePopupFromEsc(evt) {
+  const activePopup = document.querySelector('.popup_opened')
   if (evt.key === 'Escape') {
-    console.log('qwe')
-    closePopup(popup)
+    closePopup(activePopup)
   }
 }
 
 // Функция управляет зыкрытием попапа по клику на оверлей
-function closePopupFromOverlay() {
-  const popupList = Array.from(document.querySelectorAll('.popup'))
-  popupList.forEach(popup => {
-    popup.addEventListener('click', (evt) => {
-      closePopup(evt.target)
-    })
-  })
+function closePopupFromOverlay(evt) {
+  const activePopup = document.querySelector('.popup_opened')
+  if (evt.target.classList.contains('popup')) {
+    closePopup(activePopup)
+  }
 }
 
-closePopupFromOverlay()
-function callClosePopupFromEsc(evt) {
-  closePopupFromEsc(evt, popup)
-}
+
 // Функция управляет открытием попапа
 function openPopup(popup) {
-
-  document.addEventListener('keydown', callClosePopupFromEsc)
-  // document.addEventListener('keydown', (evt) => {
-  //   closePopupFromEsc(evt, popup)
-  // }, {once: true})
+  document.addEventListener('keydown', closePopupFromEsc)
+  popup.addEventListener('mousedown', closePopupFromOverlay)
   popup.classList.add('popup_opened'); //добавляем класс открытия
 }
 
 // Функция управляет закрытием попапа
 function closePopup(popup) {
-  // document.removeEventListener('keydown', (evt) => {
-  //   closePopupFromEsc(evt, popup)
-  // }, {once: true})
-  document.removeEventListener('keydown', callClosePopupFromEsc)
+  document.removeEventListener('keydown', closePopupFromEsc)
+  popup.removeEventListener('mousedown', closePopupFromOverlay)
   popup.classList.remove('popup_opened'); //убираем класс открытия
 }
 
