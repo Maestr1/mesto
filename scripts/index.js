@@ -37,7 +37,13 @@ function closePopupFromOverlay(evt) {
 // Функция управляет открытием попапа
 function openPopup(popup) {
   const inputErrorList = Array.from(popup.querySelectorAll('.popup__input-error'))
-  inputErrorList.forEach(error => {error.textContent = 'qwe';})
+  inputErrorList.forEach(error => {
+    error.classList.remove('popup__input-error_visible')
+  })
+  const inputList = Array.from(popup.querySelectorAll('.popup__input'))
+  inputList.forEach(input => {
+    input.classList.remove('popup__input_type_error')
+  })
   document.addEventListener('keydown', closePopupFromEsc)
   popup.addEventListener('mousedown', closePopupFromOverlay)
   popup.classList.add('popup_opened'); //добавляем класс открытия
