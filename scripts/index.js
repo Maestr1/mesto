@@ -1,8 +1,13 @@
 //////////////Работа с попапом//////////////
 
 const popupProfileEdit = document.querySelector('#popup-edit');
+const popupProfileEditCloseBtn = popupProfileEdit.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
+const profileEditForm = popupProfileEdit.querySelector('.popup__form');
 const popupPlaceAdd = document.querySelector('#popup-add');
+const popupPlaceAddCloseBtn = popupPlaceAdd.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
+const placeAddForm = popupPlaceAdd.querySelector('.popup__form');
 const popupZoom = document.querySelector('#popup-zoom');
+const popupZoomCloseBtn = popupZoom.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const popupProfileEditNameInput = document.querySelector('#popup-edit-input-name'); //Поле ввода имени
@@ -10,22 +15,23 @@ const popupProfileEditJobInput = document.querySelector('#popup-edit-input-job')
 const popupPlaceAddNameInput = document.querySelector('#popup-add-input-name'); //Поле ввода имени
 const popupPlaceAddLinkInput = document.querySelector('#popup-add-input-link'); //Поле ввода ссылки на изображение
 const profileEditBtn = document.querySelector('.profile__edit-btn'); //Кнопка редактирования профиля
-const popupProfileEditCloseBtn = popupProfileEdit.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
-const popupPlaceAddCloseBtn = popupPlaceAdd.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
-const popupZoomCloseBtn = popupZoom.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
 const placeAddBtn = document.querySelector('.profile__add-btn'); //Кнопка добавления места
-const placeAddForm = popupPlaceAdd.querySelector('.popup__form');
-const profileEditForm = popupProfileEdit.querySelector('.popup__form');
+const gallery = document.querySelector('.gallery');
+const cardTemplate = document.querySelector('.card-template').content; //сохраняем в переменную содержимое тега
+const galleryCard = cardTemplate.querySelector('.gallery__card'); //сохраняем в переменную карточку
+const zoomPic = document.querySelector('.popup__zoom-pic');
+const zoomDesc = document.querySelector('.popup__desc');
 
-// Функция управляет зыкрытием попапа по нажатию 'esc'
+
+//Управление закрытием попапа по нажатию 'esc'
 function closePopupFromEsc(evt) {
-  const activePopup = document.querySelector('.popup_opened')
   if (evt.key === 'Escape') {
+    const activePopup = document.querySelector('.popup_opened')
     closePopup(activePopup)
   }
 }
 
-// Функция управляет зыкрытием попапа по клику на оверлей
+//Управление закрытием попапа по клику на оверлей
 function closePopupFromOverlay(evt) {
   const activePopup = document.querySelector('.popup_opened')
   if (evt.target.classList.contains('popup')) {
@@ -33,52 +39,21 @@ function closePopupFromOverlay(evt) {
   }
 }
 
-
-// Функция управляет открытием попапа
+//Управление открытием попапа с кнопки
 function openPopup(popup) {
-  const inputErrorList = Array.from(popup.querySelectorAll('.popup__input-error'))
-  inputErrorList.forEach(error => {
-    error.classList.remove('popup__input-error_visible')
-  })
-  const inputList = Array.from(popup.querySelectorAll('.popup__input'))
-  inputList.forEach(input => {
-    input.classList.remove('popup__input_type_error')
-  })
   document.addEventListener('keydown', closePopupFromEsc)
   popup.addEventListener('mousedown', closePopupFromOverlay)
   popup.classList.add('popup_opened'); //добавляем класс открытия
 }
 
-// Функция управляет закрытием попапа
+//Управление закрытием попапа с кнопки
 function closePopup(popup) {
   document.removeEventListener('keydown', closePopupFromEsc)
   popup.removeEventListener('mousedown', closePopupFromOverlay)
   popup.classList.remove('popup_opened'); //убираем класс открытия
 }
 
-//Вешаем слушатель кликов на кнопки
-profileEditBtn.addEventListener('click', () => {
-  //подставляем значения при открытии
-  popupProfileEditNameInput.value = profileName.textContent;
-  popupProfileEditJobInput.value = profileJob.textContent;
-  let popupInputEvent = new Event('input')
-  popupProfileEditNameInput.dispatchEvent(popupInputEvent)
-  popupProfileEditJobInput.dispatchEvent(popupInputEvent)
-  openPopup(popupProfileEdit);
-});
-popupProfileEditCloseBtn.addEventListener('click', () => {
-  closePopup(popupProfileEdit);
-});
-placeAddBtn.addEventListener('click', () => {
-  //очищаем значения, которые могли остаться от предыдущего добавения
-  placeAddForm.reset();
-  openPopup(popupPlaceAdd);
-});
-popupPlaceAddCloseBtn.addEventListener('click', () => {
-  closePopup(popupPlaceAdd);
-});
-
-// Функция управляет сохранением данных в строках профиля
+//Сохранение данных из формы в строках профиля
 function editProfileInfo(evt) {
   evt.preventDefault(); //отменяем действие по умолчанию (перезагрузка страницы при отправке)
 
@@ -95,39 +70,7 @@ profileEditForm.addEventListener('submit', editProfileInfo); //функция с
 
 //////////////Загрузка карточек//////////////
 
-// Объявляем массив из объектов карточек
-const cardArr = [
-  {
-    name: 'Анталия',
-    link: './images/antalia.jpg'
-  },
-  {
-    name: 'Будапешт',
-    link: './images/budapest.jpg'
-  },
-  {
-    name: 'Карачаево-Черкесия',
-    link: './images/Karachaevsk.jpg'
-  },
-  {
-    name: 'Красная поляна',
-    link: './images/sochi.jpg'
-  },
-  {
-    name: 'Гора Эльбрус',
-    link: './images/Elbrus.jpg'
-  },
-  {
-    name: 'Домбай',
-    link: './images/Dombai.jpg'
-  },
-];
-
-//Функция клонирует узел с содержимым, заполняет атрибуты и добавляет слушатели на кнопки
-const gallery = document.querySelector('.gallery');
-const cardTemplate = document.querySelector('.card-template').content; //сохраняем в переменную содержимое тега
-const galleryCard = cardTemplate.querySelector('.gallery__card'); //сохраняем в переменную карточку
-
+//Клонирование узла с содержимым, заполнение атрибутов и добавление слушателей на кнопки
 function cloneCard(name, link) {
   const clonedCard = galleryCard.cloneNode(true);
   const removeBtn = clonedCard.querySelector('.gallery__remove-btn');
@@ -145,14 +88,14 @@ function cloneCard(name, link) {
   return clonedCard; //возвращаем заполненную карточку
 }
 
-//Фукция загружает карточки из массива
+//Загрузка карточек из массива
 function loadCards(arr) {
   arr.forEach((item) => {
     gallery.append(cloneCard(item.name, item.link));
   });
 }
 
-loadCards(cardArr);
+loadCards(cardsArray);
 
 //////////////Добавление карточек из формы//////////////
 
@@ -164,37 +107,57 @@ function addCard(evt) {
   closePopup(popupPlaceAdd);
 }
 
-placeAddForm.addEventListener('submit', addCard);
-
 //////////////Взаимодействия с карточками//////////////
 
-// Функция удаляет карточку по клику
-function removeCard(el) {
-  el.target.closest('.gallery__card').remove();
+//Удаление карточку по клику
+function removeCard(evt) {
+  evt.target.closest('.gallery__card').remove();
 }
 
 //Функция ставит лайк
-
-function likeCard(el) {
-  el.target.classList.toggle('gallery__like-btn_active');
+function likeCard(evt) {
+  evt.target.classList.toggle('gallery__like-btn_active');
 }
 
-//Функция открывает попап с увеличенным изображением
-const zoomPic = document.querySelector('.popup__zoom-pic');
-const zoomDesc = document.querySelector('.popup__desc');
-
-function zoomImage(el) {
-  zoomPic.src = el.target.src;
-  zoomPic.alt = el.target.alt;
-  zoomDesc.textContent = el.target
+//Открытие попапа с увеличенным изображением
+function zoomImage(evt) {
+  zoomPic.src = evt.target.src;
+  zoomPic.alt = evt.target.alt;
+  zoomDesc.textContent = evt.target
     .closest('.gallery__card')
     .querySelector('.gallery__title').textContent;
-
   openPopup(popupZoom);
 }
+
+//Вешаем слушатель кликов на кнопки
+profileEditBtn.addEventListener('click', () => {
+  //подставляем значения при открытии
+  popupProfileEditNameInput.value = profileName.textContent;
+  popupProfileEditJobInput.value = profileJob.textContent;
+  let popupInputEvent = new Event('input')
+  popupProfileEditNameInput.dispatchEvent(popupInputEvent)
+  popupProfileEditJobInput.dispatchEvent(popupInputEvent)
+  resetValidation(popupProfileEdit, settings)
+  openPopup(popupProfileEdit);
+});
+
+popupProfileEditCloseBtn.addEventListener('click', () => {
+  closePopup(popupProfileEdit);
+});
+
+placeAddBtn.addEventListener('click', () => {
+  //очищаем значения, которые могли остаться от предыдущего добавения
+  placeAddForm.reset();
+  resetValidation(popupPlaceAdd, settings)
+  openPopup(popupPlaceAdd);
+});
+
+popupPlaceAddCloseBtn.addEventListener('click', () => {
+  closePopup(popupPlaceAdd);
+});
+
+placeAddForm.addEventListener('submit', addCard);
 
 popupZoomCloseBtn.addEventListener('click', () => {
   closePopup(popupZoom);
 });
-
-
