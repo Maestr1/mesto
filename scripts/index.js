@@ -84,7 +84,7 @@ function cloneCard(name, link) {
   //вешаем обработчики по клику на кнопки карточки
   removeBtn.addEventListener('click', removeCard, {once: true});
   likeBtn.addEventListener('click', likeCard);
-  cardPic.addEventListener('click', zoomImage);
+  cardPic.addEventListener('click', () => zoomImage(name, link));
   return clonedCard; //возвращаем заполненную карточку
 }
 
@@ -120,12 +120,10 @@ function likeCard(evt) {
 }
 
 //Открытие попапа с увеличенным изображением
-function zoomImage(evt) {
-  zoomPic.src = evt.target.src;
-  zoomPic.alt = evt.target.alt;
-  zoomDesc.textContent = evt.target
-    .closest('.gallery__card')
-    .querySelector('.gallery__title').textContent;
+function zoomImage(name, link) {
+  zoomPic.src = link;
+  zoomPic.alt = name;
+  zoomDesc.textContent = name;
   openPopup(popupZoom);
 }
 
