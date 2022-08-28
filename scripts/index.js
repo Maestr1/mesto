@@ -57,11 +57,8 @@ function closePopup(popup) {
 function editProfileInfo(evt) {
   evt.preventDefault(); //отменяем действие по умолчанию (перезагрузка страницы при отправке)
 
-  const nameValue = popupProfileEditNameInput.value; //берем значение полей формы
-  const jobValue = popupProfileEditJobInput.value;
-
-  profileName.textContent = nameValue; //присваеваем элементам в профиле
-  profileJob.textContent = jobValue;
+  profileName.textContent = popupProfileEditNameInput.value; //присваеваем элементам в профиле
+  profileJob.textContent = popupProfileEditJobInput.value;
 
   closePopup(popupProfileEdit); //закрываем попап
 }
