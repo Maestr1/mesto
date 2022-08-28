@@ -1,4 +1,6 @@
 //////////////Работа с попапом//////////////
+import {cardsArray} from './cards.js'
+import {Card} from './Card.js'
 
 const popupProfileEdit = document.querySelector('#popup-edit');
 const popupProfileEditCloseBtn = popupProfileEdit.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
@@ -17,8 +19,6 @@ const popupPlaceAddLinkInput = document.querySelector('#popup-add-input-link'); 
 const profileEditBtn = document.querySelector('.profile__edit-btn'); //Кнопка редактирования профиля
 const placeAddBtn = document.querySelector('.profile__add-btn'); //Кнопка добавления места
 const gallery = document.querySelector('.gallery');
-const cardTemplate = document.querySelector('.card-template').content; //сохраняем в переменную содержимое тега
-const galleryCard = cardTemplate.querySelector('.gallery__card'); //сохраняем в переменную карточку
 const zoomPic = document.querySelector('.popup__zoom-pic');
 const zoomDesc = document.querySelector('.popup__desc');
 
@@ -67,28 +67,12 @@ profileEditForm.addEventListener('submit', editProfileInfo); //функция с
 
 //////////////Загрузка карточек//////////////
 
-//Клонирование узла с содержимым, заполнение атрибутов и добавление слушателей на кнопки
-function cloneCard(name, link) {
-  const clonedCard = galleryCard.cloneNode(true);
-  const removeBtn = clonedCard.querySelector('.gallery__remove-btn');
-  const likeBtn = clonedCard.querySelector('.gallery__like-btn');
-  const cardPic = clonedCard.querySelector('.gallery__pic');
-  const cardTitle = clonedCard.querySelector('.gallery__title');
-  //запоняем атрибуты данными с входа фукции
-  cardTitle.textContent = name;
-  cardPic.src = link;
-  cardPic.alt = `На изображении ${name}`;
-  //вешаем обработчики по клику на кнопки карточки
-  removeBtn.addEventListener('click', removeCard, {once: true});
-  likeBtn.addEventListener('click', likeCard);
-  cardPic.addEventListener('click', () => zoomImage(name, link));
-  return clonedCard; //возвращаем заполненную карточку
-}
 
 //Загрузка карточек из массива
 function loadCards(arr) {
   arr.forEach((item) => {
-    gallery.append(cloneCard(item.name, item.link));
+    const card = new Card(item.name, item.link, '.card-template', zoomImage);
+    gallery.append(card.cloneCard())
   });
 }
 
@@ -100,26 +84,15 @@ function addCard(evt) {
   evt.preventDefault();
   const name = popupPlaceAddNameInput.value;
   const link = popupPlaceAddLinkInput.value;
-  gallery.prepend(cloneCard(name, link));
+  const card = new Card(name, link, '.card-template', zoomImage);
+  gallery.prepend(card.cloneCard());
   closePopup(popupPlaceAdd);
-}
-
-//////////////Взаимодействия с карточками//////////////
-
-//Удаление карточку по клику
-function removeCard(evt) {
-  evt.target.closest('.gallery__card').remove();
-}
-
-//Функция ставит лайк
-function likeCard(evt) {
-  evt.target.classList.toggle('gallery__like-btn_active');
 }
 
 //Открытие попапа с увеличенным изображением
 function zoomImage(name, link) {
   zoomPic.src = link;
-  zoomPic.alt = name;
+  zoomPic.alt = `На изображении ${name}`;
   zoomDesc.textContent = name;
   openPopup(popupZoom);
 }

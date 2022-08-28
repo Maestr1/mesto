@@ -1,5 +1,5 @@
 // Объявляем массив из объектов карточек
-const cardsArray = [
+export const cardsArray = [
   {
     name: 'Анталия',
     link: './images/antalia.jpg'
