@@ -1,6 +1,7 @@
 //////////////Работа с попапом//////////////
 import {cardsArray} from './cards.js'
 import {Card} from './Card.js'
+import {FormValidator} from './FormValidator.js';
 
 const popupProfileEdit = document.querySelector('#popup-edit');
 const popupProfileEditCloseBtn = popupProfileEdit.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
