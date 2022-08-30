@@ -1,3 +1,4 @@
+//Класс для создания карточки
 export class Card {
   constructor(name, link, templateSelector, zoomImage) {
     this._link = link;

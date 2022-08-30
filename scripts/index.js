@@ -98,6 +98,35 @@ function zoomImage(name, link) {
   openPopup(popupZoom);
 }
 
+//Объект с настройками
+export const settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-btn',
+  inactiveButtonClass: 'popup__save-btn_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_visible'
+}
+
+//Сброс валидации
+function resetValidation() {
+  placeAddForm.querySelector('#popup-add-input-name-error').classList.remove(settings.errorClass);
+  placeAddForm.querySelector('#popup-add-input-link-error').classList.remove(settings.errorClass);
+  popupPlaceAddNameInput.classList.remove(settings.inputErrorClass);
+  popupPlaceAddLinkInput.classList.remove(settings.inputErrorClass);
+}
+
+//Включение валидации форм
+function createFormValidationClass(settings) {
+  const formList = Array.from(document.querySelectorAll(settings.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(settings, formElement)
+    validator.enableValidation()
+  });
+}
+
+createFormValidationClass(settings);
+
 //Вешаем слушатель кликов на кнопки
 profileEditBtn.addEventListener('click', () => {
   //подставляем значения при открытии
@@ -106,7 +135,7 @@ profileEditBtn.addEventListener('click', () => {
   let popupInputEvent = new Event('input')
   popupProfileEditNameInput.dispatchEvent(popupInputEvent)
   popupProfileEditJobInput.dispatchEvent(popupInputEvent)
-  resetValidation(popupProfileEdit, settings)
+  //resetValidation(popupProfileEdit, settings)
   openPopup(popupProfileEdit);
 });
 
@@ -116,8 +145,8 @@ popupProfileEditCloseBtn.addEventListener('click', () => {
 
 placeAddBtn.addEventListener('click', () => {
   //очищаем значения, которые могли остаться от предыдущего добавения
+  resetValidation()
   placeAddForm.reset();
-  resetValidation(popupPlaceAdd, settings)
   openPopup(popupPlaceAdd);
 });
 
