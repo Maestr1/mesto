@@ -1,5 +1,5 @@
 //////////////Работа с попапом//////////////
-import {cardsArray} from './cards.js'
+import {cardsArray, settings} from './data.js'
 import {Card} from './Card.js'
 import {FormValidator} from './FormValidator.js';
 
@@ -68,12 +68,14 @@ profileEditForm.addEventListener('submit', editProfileInfo); //функция с
 
 //////////////Загрузка карточек//////////////
 
+function newCardClass(name, link, templateSelector, func) {
+  return new Card(name, link, templateSelector, func);
+}
 
 //Загрузка карточек из массива
 function loadCards(arr) {
   arr.forEach((item) => {
-    const card = new Card(item.name, item.link, '.card-template', zoomImage);
-    gallery.append(card.cloneCard())
+    gallery.append(newCardClass(item.name, item.link, '.card-template', zoomImage).cloneCard())
   });
 }
 
@@ -85,8 +87,7 @@ function addCard(evt) {
   evt.preventDefault();
   const name = popupPlaceAddNameInput.value;
   const link = popupPlaceAddLinkInput.value;
-  const card = new Card(name, link, '.card-template', zoomImage);
-  gallery.prepend(card.cloneCard());
+  gallery.prepend(newCardClass(name, link, '.card-template', zoomImage).cloneCard());
   closePopup(popupPlaceAdd);
 }
 
@@ -98,30 +99,15 @@ function zoomImage(name, link) {
   openPopup(popupZoom);
 }
 
-//Объект с настройками
-export const settings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-btn',
-  inactiveButtonClass: 'popup__save-btn_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_visible'
-}
-
-//Сброс валидации
-function resetValidation() {
-  placeAddForm.querySelector('#popup-add-input-name-error').classList.remove(settings.errorClass);
-  placeAddForm.querySelector('#popup-add-input-link-error').classList.remove(settings.errorClass);
-  popupPlaceAddNameInput.classList.remove(settings.inputErrorClass);
-  popupPlaceAddLinkInput.classList.remove(settings.inputErrorClass);
-}
-
 //Включение валидации форм
 function createFormValidationClass(settings) {
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formElement) => {
     const validator = new FormValidator(settings, formElement)
     validator.enableValidation()
+    placeAddBtn.addEventListener('click', () => {
+      validator.resetValidation()
+    })
   });
 }
 
@@ -132,10 +118,11 @@ profileEditBtn.addEventListener('click', () => {
   //подставляем значения при открытии
   popupProfileEditNameInput.value = profileName.textContent;
   popupProfileEditJobInput.value = profileJob.textContent;
-  let popupInputEvent = new Event('input')
+  //генерируем событие 'input, что бы кнопка была активна при открытии попапа, если данные валидны
+  //т.к. проверка валидности происходит при вводе в инпут
+  const popupInputEvent = new Event('input')
   popupProfileEditNameInput.dispatchEvent(popupInputEvent)
   popupProfileEditJobInput.dispatchEvent(popupInputEvent)
-  //resetValidation(popupProfileEdit, settings)
   openPopup(popupProfileEdit);
 });
 
@@ -145,7 +132,6 @@ popupProfileEditCloseBtn.addEventListener('click', () => {
 
 placeAddBtn.addEventListener('click', () => {
   //очищаем значения, которые могли остаться от предыдущего добавения
-  resetValidation()
   placeAddForm.reset();
   openPopup(popupPlaceAdd);
 });
