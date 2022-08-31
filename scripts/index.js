@@ -68,14 +68,14 @@ profileEditForm.addEventListener('submit', editProfileInfo); //функция с
 
 //////////////Загрузка карточек//////////////
 
-function newCardClass(name, link, templateSelector, func) {
-  return new Card(name, link, templateSelector, func);
+function createNewCard(name, link, templateSelector, func) {
+  return new Card(name, link, templateSelector, func).cloneCard();
 }
 
 //Загрузка карточек из массива
 function loadCards(arr) {
   arr.forEach((item) => {
-    gallery.append(newCardClass(item.name, item.link, '.card-template', zoomImage).cloneCard())
+    gallery.append(createNewCard(item.name, item.link, '.card-template', zoomImage))
   });
 }
 
@@ -87,7 +87,7 @@ function addCard(evt) {
   evt.preventDefault();
   const name = popupPlaceAddNameInput.value;
   const link = popupPlaceAddLinkInput.value;
-  gallery.prepend(newCardClass(name, link, '.card-template', zoomImage).cloneCard());
+  gallery.prepend(createNewCard(name, link, '.card-template', zoomImage));
   closePopup(popupPlaceAdd);
 }
 
@@ -99,30 +99,22 @@ function zoomImage(name, link) {
   openPopup(popupZoom);
 }
 
-//Включение валидации форм
-function createFormValidationClass(settings) {
-  const formList = Array.from(document.querySelectorAll(settings.formSelector));
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(settings, formElement)
-    validator.enableValidation()
-    placeAddBtn.addEventListener('click', () => {
-      validator.resetValidation()
-    })
-  });
+function createNewFormValidator(settings, formElement) {
+  return new FormValidator(settings, formElement.querySelector('.popup__form'))
 }
 
-createFormValidationClass(settings);
+const placeAddFormValidator = createNewFormValidator(settings, popupPlaceAdd)
+placeAddFormValidator.enableValidation()
+
+const profileEditFormValidator = createNewFormValidator(settings, popupProfileEdit)
+profileEditFormValidator.enableValidation()
 
 //Вешаем слушатель кликов на кнопки
 profileEditBtn.addEventListener('click', () => {
   //подставляем значения при открытии
   popupProfileEditNameInput.value = profileName.textContent;
   popupProfileEditJobInput.value = profileJob.textContent;
-  //генерируем событие 'input, что бы кнопка была активна при открытии попапа, если данные валидны
-  //т.к. проверка валидности происходит при вводе в инпут
-  const popupInputEvent = new Event('input')
-  popupProfileEditNameInput.dispatchEvent(popupInputEvent)
-  popupProfileEditJobInput.dispatchEvent(popupInputEvent)
+  profileEditFormValidator.resetValidation()
   openPopup(popupProfileEdit);
 });
 
@@ -132,6 +124,7 @@ popupProfileEditCloseBtn.addEventListener('click', () => {
 
 placeAddBtn.addEventListener('click', () => {
   //очищаем значения, которые могли остаться от предыдущего добавения
+  placeAddFormValidator.resetValidation()
   placeAddForm.reset();
   openPopup(popupPlaceAdd);
 });

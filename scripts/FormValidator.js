@@ -56,7 +56,7 @@ export class FormValidator {
   //Сброс статуса валидности на форме
   resetValidation() {
     this._disableButton(this._buttonElement)
-    Array.from(this._formElement.querySelectorAll(this._settings.inputSelector)).forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
   }
