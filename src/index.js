@@ -1,9 +1,9 @@
-import '../pages/index.css';
+import './pages/index.css';
 
 //////////////Работа с попапом//////////////
-import {cardsArray, settings} from '../scripts/data.js';
-import {Card} from '../scripts/Card.js';
-import {FormValidator} from '../scripts/FormValidator.js';
+import {cardsArray, settings} from './scripts/data.js';
+import {Card} from './scripts/components/Card.js';
+import {FormValidator} from './scripts/components/FormValidator.js';
 
 const popupProfileEdit = document.querySelector('#popup-edit');
 const popupProfileEditCloseBtn = popupProfileEdit.querySelector('.popup__close-btn'); //Кнопка закрытия попапа
