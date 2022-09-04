@@ -1,7 +1,9 @@
+import '../pages/index.css';
+
 //////////////Работа с попапом//////////////
-import {cardsArray, settings} from './data.js'
-import {Card} from './Card.js'
-import {FormValidator} from './FormValidator.js';
+import {cardsArray, settings} from '../scripts/data.js';
+import {Card} from '../scripts/Card.js';
+import {FormValidator} from '../scripts/FormValidator.js';
 
 const popupProfileEdit = document.querySelector('#popup-edit');
 const popupProfileEditCloseBtn = popupProfileEdit.querySelector('.popup__close-btn'); //Кнопка закрытия попапа

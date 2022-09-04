@@ -1,28 +1,36 @@
+const antalia = new URL('../images/antalia.jpg', import.meta.url)
+const budapest = new URL('../images/budapest.jpg', import.meta.url)
+const karachaevsk = new URL('../images/karachaevsk.jpg', import.meta.url)
+const sochi = new URL('../images/sochi.jpg', import.meta.url)
+const elbrus = new URL('../images/elbrus.jpg', import.meta.url)
+const dombai = new URL('../images/dombai.jpg', import.meta.url)
+
+
 // Объявляем массив из объектов карточек
 export const cardsArray = [
   {
     name: 'Анталия',
-    link: './images/antalia.jpg'
+    link: antalia
   },
   {
     name: 'Будапешт',
-    link: './images/budapest.jpg'
+    link: budapest
   },
   {
     name: 'Карачаево-Черкесия',
-    link: './images/Karachaevsk.jpg'
+    link: karachaevsk
   },
   {
     name: 'Красная поляна',
-    link: './images/sochi.jpg'
+    link: sochi
   },
   {
     name: 'Гора Эльбрус',
-    link: './images/Elbrus.jpg'
+    link: elbrus
   },
   {
     name: 'Домбай',
-    link: './images/Dombai.jpg'
+    link: dombai
   },
 ];
 
