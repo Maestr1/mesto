@@ -1,39 +1,29 @@
 import './pages/index.css';
 
 //////////////Работа с попапом//////////////
-import {cardsArray, settings} from './scripts/data';
-import {Section} from './scripts/components/Section';
-import {Card} from './scripts/components/Card';
-import {FormValidator} from './scripts/components/FormValidator';
-import {Popup, PopupWithImage, PopupWithForm} from './scripts/components/Popup';
-import {UserInfo} from './scripts/components/UserInfo';
+import {cardsArray, settings} from './Utils/data';
+import {Section} from './components/Section';
+import {Card} from './components/Card';
+import {FormValidator} from './components/FormValidator';
+import {PopupWithForm} from './components/PopupWithForm';
+import {PopupWithImage} from './components/PopupWithImage';
+import {UserInfo} from './components/UserInfo';
 
 import {
   popupProfileEdit,
-  popupProfileEditCloseBtn,
-  profileEditForm,
   popupPlaceAdd,
-  popupPlaceAddCloseBtn,
-  placeAddForm,
   popupZoom,
-  popupZoomCloseBtn,
-  profileName,
-  profileJob,
-  popupProfileEditNameInput,
-  popupProfileEditJobInput,
-  popupPlaceAddNameInput,
-  popupPlaceAddLinkInput,
   profileEditBtn,
   placeAddBtn,
   gallery,
   zoomPic,
   zoomDesc
-} from './scripts/Utils/constants';
+} from './Utils/constants';
 
 const popupWithImageInstance = new PopupWithImage(popupZoom, zoomDesc, zoomPic);
 const popupProfileEditClass = new PopupWithForm(popupProfileEdit, editProfileInfo);
 const popupPlaceAddClass = new PopupWithForm(popupPlaceAdd, addCard);
-const userInfo = new UserInfo(profileName, profileJob, popupProfileEditNameInput, popupProfileEditJobInput);
+const userInfoHandler = new UserInfo('.profile__name', '.profile__job');
 
 //////////////Загрузка карточек//////////////
 
@@ -58,7 +48,7 @@ function createNewSection(itemsList) {
 //Сохранение данных из формы в строках профиля
 function editProfileInfo(evt) {
   evt.preventDefault(); //отменяем действие по умолчанию (перезагрузка страницы при отправке)
-  userInfo.setUserInfo();
+  userInfoHandler.setUserInfo();
   popupProfileEditClass.close(); //закрываем попап
 }
 
@@ -72,8 +62,7 @@ loadCards(cardsArray);
 //Загрузка карточки из формы
 function addCard(evt) {
   evt.preventDefault();
-  const item = [{name: popupPlaceAddNameInput.value, link: popupPlaceAddLinkInput.value}];
-  createNewSection(item).renderItems();
+  createNewSection(popupPlaceAddClass._getInputValues()).renderItems();
   popupPlaceAddClass.close();
 }
 
@@ -90,8 +79,9 @@ profileEditFormValidator.enableValidation();
 //Вешаем слушатель кликов на кнопки
 profileEditBtn.addEventListener('click', () => {
   //подставляем значения при открытии
-  popupProfileEditNameInput.value = userInfo.getUserInfo().name;
-  popupProfileEditJobInput.value = userInfo.getUserInfo().job;
+  const userInfo = userInfoHandler.getUserInfo();
+  document.querySelector('input[name=profile-name]').value = userInfo.name;
+  document.querySelector('input[name=profile-job]').value = userInfo.job;
   profileEditFormValidator.resetValidation();
   popupProfileEditClass.open();
 });
@@ -99,6 +89,5 @@ profileEditBtn.addEventListener('click', () => {
 placeAddBtn.addEventListener('click', () => {
   //очищаем значения, которые могли остаться от предыдущего добавения
   placeAddFormValidator.resetValidation();
-  placeAddForm.reset();
   popupPlaceAddClass.open();
 });
