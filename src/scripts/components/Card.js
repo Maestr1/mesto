@@ -1,10 +1,10 @@
 //Класс для создания карточки
 export class Card {
-  constructor(name, link, templateSelector, zoomImage) {
+  constructor(name, link, templateSelector, handleCardClick) {
     this._link = link;
     this._name = name;
     this._templateSelector = templateSelector;
-    this._zoomImage = zoomImage;
+    this._handleCardClick = handleCardClick
   }
 
 //Поиск и клонирование шаблона корточки
@@ -40,7 +40,7 @@ export class Card {
     //вешаем обработчики по клику на кнопки карточки
     this._removeBtn.addEventListener('click', this._removeCard.bind(this), {once: true});
     this._likeBtn.addEventListener('click', this._likeCard.bind(this));
-    cardPic.addEventListener('click', () => this._zoomImage(this._name, this._link));
+    cardPic.addEventListener('click', this._handleCardClick);
     return clonedCard; //возвращаем заполненную карточку
   }
 }
