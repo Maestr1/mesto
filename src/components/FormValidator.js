@@ -45,8 +45,8 @@ export class FormValidator {
 
 //Переключение статуса активности кнопки
   _toggleButtonState() {
-    if (this._hasInvalidInput(this._inputList)) {
-      this._disableButton(this._buttonElement)
+    if (this._hasInvalidInput()) {
+      this._disableButton()
     } else {
       this._buttonElement.classList.remove(this._settings.inactiveButtonClass)
       this._buttonElement.removeAttribute('disabled')
@@ -55,7 +55,7 @@ export class FormValidator {
 
   //Сброс статуса валидности на форме
   resetValidation() {
-    this._disableButton(this._buttonElement)
+    this._disableButton()
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
@@ -63,11 +63,11 @@ export class FormValidator {
 
   //Назначение обработчиков
   _setEventListeners() {
-    this._toggleButtonState(this._buttonElement)
+    this._toggleButtonState()
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(this._buttonElement)
+        this._toggleButtonState()
       });
     });
   }

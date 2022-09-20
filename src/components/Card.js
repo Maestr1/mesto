@@ -5,6 +5,7 @@ export class Card {
     this._name = name;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick
+    this._removeCardHandler = this._removeCard.bind(this)
   }
 
 //Поиск и клонирование шаблона корточки
@@ -18,7 +19,8 @@ export class Card {
 
 //Удаление карточку по клику
   _removeCard() {
-    this._removeBtn.closest('.gallery__card').remove();
+    this._clonedCard.remove()
+    this._clonedCard = null;
   }
 
 //Функция ставит лайк
@@ -28,19 +30,19 @@ export class Card {
 
   //Заполнение карточки данными и установка обработчиков
   cloneCard() {
-    const clonedCard = this._getTemplate()
-    const cardPic = clonedCard.querySelector('.gallery__pic');
-    const cardTitle = clonedCard.querySelector('.gallery__title');
-    this._removeBtn = clonedCard.querySelector('.gallery__remove-btn');
-    this._likeBtn = clonedCard.querySelector('.gallery__like-btn');
+    this._clonedCard = this._getTemplate()
+    const cardPic = this._clonedCard.querySelector('.gallery__pic');
+    const cardTitle = this._clonedCard.querySelector('.gallery__title');
+    this._removeBtn = this._clonedCard.querySelector('.gallery__remove-btn');
+    this._likeBtn = this._clonedCard.querySelector('.gallery__like-btn');
     //запоняем атрибуты данными с входа фукции
     cardTitle.textContent = this._name;
     cardPic.src = this._link;
     cardPic.alt = `На изображении ${this._name}`;
     //вешаем обработчики по клику на кнопки карточки
-    this._removeBtn.addEventListener('click', this._removeCard.bind(this), {once: true});
+    this._removeBtn.addEventListener('click', this._removeCard.bind(this));
     this._likeBtn.addEventListener('click', this._likeCard.bind(this));
     cardPic.addEventListener('click', this._handleCardClick);
-    return clonedCard; //возвращаем заполненную карточку
+    return this._clonedCard; //возвращаем заполненную карточку
   }
 }

@@ -1,13 +1,13 @@
-import './pages/index.css';
+import './index.css';
 
 //////////////Работа с попапом//////////////
-import {cardsArray, settings} from './Utils/data';
-import {Section} from './components/Section';
-import {Card} from './components/Card';
-import {FormValidator} from './components/FormValidator';
-import {PopupWithForm} from './components/PopupWithForm';
-import {PopupWithImage} from './components/PopupWithImage';
-import {UserInfo} from './components/UserInfo';
+import {cardsArray, settings} from '../utils/data';
+import {Section} from '../components/Section';
+import {Card} from '../components/Card';
+import {FormValidator} from '../components/FormValidator';
+import {PopupWithForm} from '../components/PopupWithForm';
+import {PopupWithImage} from '../components/PopupWithImage';
+import {UserInfo} from '../components/UserInfo';
 
 import {
   popupProfileEdit,
@@ -18,7 +18,7 @@ import {
   gallery,
   zoomPic,
   zoomDesc
-} from './Utils/constants';
+} from '../utils/constants';
 
 const popupWithImageInstance = new PopupWithImage(popupZoom, zoomDesc, zoomPic);
 const popupProfileEditClass = new PopupWithForm(popupProfileEdit, editProfileInfo);
