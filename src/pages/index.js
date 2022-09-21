@@ -20,9 +20,12 @@ import {
   zoomDesc
 } from '../utils/constants';
 
-const popupWithImageInstance = new PopupWithImage(popupZoom, zoomDesc, zoomPic);
-const popupProfileEditClass = new PopupWithForm(popupProfileEdit, editProfileInfo);
-const popupPlaceAddClass = new PopupWithForm(popupPlaceAdd, addCard);
+const popupWithImageInstance = new PopupWithImage('#popup-zoom');
+popupWithImageInstance.setEventListeners()
+const popupProfileEditClass = new PopupWithForm('#popup-edit', editProfileInfo);
+popupProfileEditClass.setEventListeners()
+const popupPlaceAddClass = new PopupWithForm('#popup-add', addCard);
+popupPlaceAddClass.setEventListeners()
 const userInfoHandler = new UserInfo('.profile__name', '.profile__job');
 
 //////////////Загрузка карточек//////////////
@@ -47,7 +50,7 @@ function createNewSection(itemsList) {
 
 //Сохранение данных из формы в строках профиля
 function editProfileInfo(evt) {
-  evt.preventDefault(); //отменяем действие по умолчанию (перезагрузка страницы при отправке)
+  //evt.preventDefault(); //отменяем действие по умолчанию (перезагрузка страницы при отправке)
   userInfoHandler.setUserInfo();
   popupProfileEditClass.close(); //закрываем попап
 }
@@ -60,9 +63,10 @@ function loadCards(itemsList) {
 loadCards(cardsArray);
 
 //Загрузка карточки из формы
-function addCard(evt) {
-  evt.preventDefault();
-  createNewSection(popupPlaceAddClass._getInputValues()).renderItems();
+function addCard(formValues) {
+  //evt.preventDefault();
+
+  createNewSection([formValues]).renderItems();
   popupPlaceAddClass.close();
 }
 
