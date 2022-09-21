@@ -50,7 +50,6 @@ function createNewSection(itemsList) {
 
 //Сохранение данных из формы в строках профиля
 function editProfileInfo(evt) {
-  //evt.preventDefault(); //отменяем действие по умолчанию (перезагрузка страницы при отправке)
   userInfoHandler.setUserInfo();
   popupProfileEditClass.close(); //закрываем попап
 }
@@ -64,8 +63,6 @@ loadCards(cardsArray);
 
 //Загрузка карточки из формы
 function addCard(formValues) {
-  //evt.preventDefault();
-
   createNewSection([formValues]).renderItems();
   popupPlaceAddClass.close();
 }
