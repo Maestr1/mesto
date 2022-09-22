@@ -4,8 +4,8 @@ export class Card {
     this._link = link;
     this._name = name;
     this._templateSelector = templateSelector;
-    this._handleCardClick = handleCardClick
-    this._removeCardHandler = this._removeCard.bind(this)
+    this._handleCardClick = handleCardClick;
+    this._removeCardHandler = this._removeCard.bind(this);
   }
 
 //Поиск и клонирование шаблона корточки
@@ -19,7 +19,7 @@ export class Card {
 
 //Удаление карточку по клику
   _removeCard() {
-    this._clonedCard.remove()
+    this._clonedCard.remove();
     this._clonedCard = null;
   }
 
@@ -30,7 +30,7 @@ export class Card {
 
   //Заполнение карточки данными и установка обработчиков
   cloneCard() {
-    this._clonedCard = this._getTemplate()
+    this._clonedCard = this._getTemplate();
     const cardPic = this._clonedCard.querySelector('.gallery__pic');
     const cardTitle = this._clonedCard.querySelector('.gallery__title');
     this._removeBtn = this._clonedCard.querySelector('.gallery__remove-btn');

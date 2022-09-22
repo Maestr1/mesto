@@ -9,28 +9,28 @@ const dombai = new URL('../images/dombai.jpg', import.meta.url)
 // Объявляем массив из объектов карточек
 export const cardsArray = [
   {
-    name: 'Анталия',
-    link: antalia
+    placeName: 'Анталия',
+    placeLink: antalia
   },
   {
-    name: 'Будапешт',
-    link: budapest
+    placeName: 'Будапешт',
+    placeLink: budapest
   },
   {
-    name: 'Карачаево-Черкесия',
-    link: karachaevsk
+    placeName: 'Карачаево-Черкесия',
+    placeLink: karachaevsk
   },
   {
-    name: 'Красная поляна',
-    link: sochi
+    placeName: 'Красная поляна',
+    placeLink: sochi
   },
   {
-    name: 'Гора Эльбрус',
-    link: elbrus
+    placeName: 'Гора Эльбрус',
+    placeLink: elbrus
   },
   {
-    name: 'Домбай',
-    link: dombai
+    placeName: 'Домбай',
+    placeLink: dombai
   },
 ];
 

@@ -21,36 +21,36 @@ import {
 } from '../utils/constants';
 
 const popupWithImageInstance = new PopupWithImage('#popup-zoom');
-popupWithImageInstance.setEventListeners()
+popupWithImageInstance.setEventListeners();
 const popupProfileEditClass = new PopupWithForm('#popup-edit', editProfileInfo);
-popupProfileEditClass.setEventListeners()
+popupProfileEditClass.setEventListeners();
 const popupPlaceAddClass = new PopupWithForm('#popup-add', addCard);
-popupPlaceAddClass.setEventListeners()
-const userInfoHandler = new UserInfo('.profile__name', '.profile__job');
+popupPlaceAddClass.setEventListeners();
+const userInfoHandler = new UserInfo({nameSelector: '.profile__name', jobSelector: '.profile__job'});
 
 //////////////Загрузка карточек//////////////
 
 //создает новый инстанс Card и возвращает заполненную карточку
-function createNewCard(name, link, templateSelector, func) {
-  return new Card(name, link, templateSelector, func).cloneCard();
+function createNewCard(name, link) {
+  return new Card(name, link, '.card-template', () => {
+    popupWithImageInstance.open(name, link);
+  }).cloneCard();
 }
 
 //создает новый инстанс Section и вставляет карточку в DOM
 function createNewSection(itemsList) {
   const cardLoader = new Section({
     items: itemsList, renderer: (item) => {
-      const card = createNewCard(item.name, item.link, '.card-template', () => {
-        popupWithImageInstance.open(item.name, item.link);
-      });
+      const card = createNewCard(item.placeName, item.placeLink);
       cardLoader.addItem(card);
     }
-  }, gallery);
+  }, '.gallery');
   return cardLoader;
 }
 
 //Сохранение данных из формы в строках профиля
-function editProfileInfo(evt) {
-  userInfoHandler.setUserInfo();
+function editProfileInfo(formValues) {
+  userInfoHandler.setUserInfo(formValues);
   popupProfileEditClass.close(); //закрываем попап
 }
 
@@ -81,8 +81,8 @@ profileEditFormValidator.enableValidation();
 profileEditBtn.addEventListener('click', () => {
   //подставляем значения при открытии
   const userInfo = userInfoHandler.getUserInfo();
-  document.querySelector('input[name=profile-name]').value = userInfo.name;
-  document.querySelector('input[name=profile-job]').value = userInfo.job;
+  document.querySelector('input[name=profileName]').value = userInfo.name;
+  document.querySelector('input[name=profileJob]').value = userInfo.job;
   profileEditFormValidator.resetValidation();
   popupProfileEditClass.open();
 });
