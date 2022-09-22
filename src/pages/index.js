@@ -12,14 +12,13 @@ import {UserInfo} from '../components/UserInfo';
 import {
   popupProfileEdit,
   popupPlaceAdd,
-  popupZoom,
   profileEditBtn,
   placeAddBtn,
-  gallery,
-  zoomPic,
-  zoomDesc
+  inputProfileName,
+  inputProfileJob
 } from '../utils/constants';
 
+//Создаем экземпляры классов
 const popupWithImageInstance = new PopupWithImage('#popup-zoom');
 popupWithImageInstance.setEventListeners();
 const popupProfileEditClass = new PopupWithForm('#popup-edit', editProfileInfo);
@@ -30,22 +29,32 @@ const userInfoHandler = new UserInfo({nameSelector: '.profile__name', jobSelecto
 
 //////////////Загрузка карточек//////////////
 
-//создает новый инстанс Card и возвращает заполненную карточку
+//создает новый инстанс Card
 function createNewCard(name, link) {
   return new Card(name, link, '.card-template', () => {
     popupWithImageInstance.open(name, link);
   }).cloneCard();
 }
 
-//создает новый инстанс Section и вставляет карточку в DOM
-function createNewSection(itemsList) {
-  const cardLoader = new Section({
-    items: itemsList, renderer: (item) => {
-      const card = createNewCard(item.placeName, item.placeLink);
-      cardLoader.addItem(card);
-    }
-  }, '.gallery');
-  return cardLoader;
+const cardLoader = new Section({
+  items: cardsArray, renderer: (item) => {
+    const card = createNewCard(item.placeName, item.placeLink, '.card-template', () => {
+      popupWithImageInstance.open(item.placeName, item.placeLink);
+    });
+    cardLoader.addItem(card);
+  }
+}, '.gallery');
+
+//Загрузка карточек из массива
+cardLoader.renderItems();
+
+//Загрузка карточки из формы
+function addCard(formValues) {
+  const newCard = createNewCard(formValues.placeName, formValues.placeLink, '.card-template', () => {
+    popupWithImageInstance.open(formValues.placeName, formValues.placeLink);
+  });
+  cardLoader.addItem(newCard);
+  popupPlaceAddClass.close();
 }
 
 //Сохранение данных из формы в строках профиля
@@ -53,27 +62,14 @@ function editProfileInfo(formValues) {
   userInfoHandler.setUserInfo(formValues);
   popupProfileEditClass.close(); //закрываем попап
 }
-
-//Загрузка карточек из массива
-function loadCards(itemsList) {
-  createNewSection(itemsList).renderItems();
-}
-
-loadCards(cardsArray);
-
-//Загрузка карточки из формы
-function addCard(formValues) {
-  createNewSection([formValues]).renderItems();
-  popupPlaceAddClass.close();
-}
-
+//Валидация форм
 function createNewFormValidator(settings, formElement) {
   return new FormValidator(settings, formElement.querySelector('.popup__form'));
 }
 
+//Включаем валидацию форм
 const placeAddFormValidator = createNewFormValidator(settings, popupPlaceAdd);
 placeAddFormValidator.enableValidation();
-
 const profileEditFormValidator = createNewFormValidator(settings, popupProfileEdit);
 profileEditFormValidator.enableValidation();
 
@@ -81,8 +77,8 @@ profileEditFormValidator.enableValidation();
 profileEditBtn.addEventListener('click', () => {
   //подставляем значения при открытии
   const userInfo = userInfoHandler.getUserInfo();
-  document.querySelector('input[name=profileName]').value = userInfo.name;
-  document.querySelector('input[name=profileJob]').value = userInfo.job;
+  inputProfileName.value = userInfo.name;
+  inputProfileJob.value = userInfo.job;
   profileEditFormValidator.resetValidation();
   popupProfileEditClass.open();
 });
