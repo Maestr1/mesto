@@ -43,3 +43,11 @@ export const settings = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_visible'
 };
+
+export const apiOptions = {
+  baseUrl: 'https://nomoreparties.co/v1/cohort-51',
+  headers: {
+    authorization: 'fa7292f4-824e-46b8-941f-2d01ddc8db72',
+    'Content-Type': 'application/json'
+  }
+};

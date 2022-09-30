@@ -5,7 +5,6 @@ export class Card {
     this._name = name;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    this._removeCardHandler = this._removeCard.bind(this);
   }
 
 //Поиск и клонирование шаблона корточки

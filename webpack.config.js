@@ -4,6 +4,9 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+  experiments: {
+    topLevelAwait: true
+  },
   entry: {main: './src/pages/index.js'},
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -30,7 +33,7 @@ module.exports = {
       },
       {
         test: /\.html$/i,
-        loader: "html-loader",
+        loader: 'html-loader',
       },
       {
         test: /\.css$/,

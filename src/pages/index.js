@@ -1,21 +1,22 @@
 import './index.css';
 
 //////////////Работа с попапом//////////////
-import {cardsArray, settings} from '../utils/data';
+import {apiOptions, cardsArray, settings} from '../utils/data';
 import {Section} from '../components/Section';
 import {Card} from '../components/Card';
 import {FormValidator} from '../components/FormValidator';
 import {PopupWithForm} from '../components/PopupWithForm';
 import {PopupWithImage} from '../components/PopupWithImage';
 import {UserInfo} from '../components/UserInfo';
+import {Api} from '../components/Api';
 
 import {
-  popupProfileEdit,
-  popupPlaceAdd,
-  profileEditBtn,
-  placeAddBtn,
+  inputProfileJob,
   inputProfileName,
-  inputProfileJob
+  placeAddBtn,
+  popupPlaceAdd,
+  popupProfileEdit,
+  profileEditBtn
 } from '../utils/constants';
 
 //Создаем экземпляры классов
@@ -26,6 +27,10 @@ popupProfileEditClass.setEventListeners();
 const popupPlaceAddClass = new PopupWithForm('#popup-add', addCard);
 popupPlaceAddClass.setEventListeners();
 const userInfoHandler = new UserInfo({nameSelector: '.profile__name', jobSelector: '.profile__job'});
+const api = new Api(apiOptions);
+
+////////////Загрузка данных с сервера/////////////////
+
 
 //////////////Загрузка карточек//////////////
 
@@ -56,12 +61,20 @@ function addCard(formValues) {
   cardLoader.addItem(newCard);
   popupPlaceAddClass.close();
 }
+function loadProfileInfo() {
+  api.requestUserInfo()
+    .then(res=> {
+      editProfileInfo(res);
+    })
+}
+loadProfileInfo()
 
 //Сохранение данных из формы в строках профиля
 function editProfileInfo(formValues) {
   userInfoHandler.setUserInfo(formValues);
   popupProfileEditClass.close(); //закрываем попап
 }
+
 //Валидация форм
 function createNewFormValidator(settings, formElement) {
   return new FormValidator(settings, formElement.querySelector('.popup__form'));
@@ -78,7 +91,7 @@ profileEditBtn.addEventListener('click', () => {
   //подставляем значения при открытии
   const userInfo = userInfoHandler.getUserInfo();
   inputProfileName.value = userInfo.name;
-  inputProfileJob.value = userInfo.job;
+  inputProfileJob.value = userInfo.about;
   profileEditFormValidator.resetValidation();
   popupProfileEditClass.open();
 });
