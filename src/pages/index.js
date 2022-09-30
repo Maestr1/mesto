@@ -16,7 +16,7 @@ import {
   placeAddBtn,
   popupPlaceAdd,
   popupProfileEdit,
-  profileEditBtn
+  profileEditBtn, profileJob, profileName
 } from '../utils/constants';
 
 //Создаем экземпляры классов
@@ -61,16 +61,24 @@ function addCard(formValues) {
   cardLoader.addItem(newCard);
   popupPlaceAddClass.close();
 }
-function loadProfileInfo() {
-  api.requestUserInfo()
-    .then(res=> {
-      editProfileInfo(res);
-    })
-}
-loadProfileInfo()
+
+//Загрузка данных профиля с сервера
+// function updateUserInfo() {
+//   api.requestUserInfo()
+//     .then(res => userInfoHandler.setUserInfo(res));
+// }
+//
+// updateUserInfo();
+
+
+api.requestUserInfo()
+  .then(res=>{
+    userInfoHandler.setUserInfo(res)
+  })
 
 //Сохранение данных из формы в строках профиля
 function editProfileInfo(formValues) {
+  api.patchUserInfo(formValues)
   userInfoHandler.setUserInfo(formValues);
   popupProfileEditClass.close(); //закрываем попап
 }
