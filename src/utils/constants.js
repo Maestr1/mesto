@@ -7,4 +7,3 @@ export const inputProfileJob = document.querySelector('input[name=about]');
 export const profileAvatar = document.querySelector('.profile__avatar');
 export const profileName = document.querySelector('.profile__name');
 export const profileJob = document.querySelector('.profile__job');
-export const userId = '5f579e70fba9010d0b252a04'
