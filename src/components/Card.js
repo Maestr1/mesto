@@ -39,13 +39,20 @@ export class Card {
     this._likeBtn.classList.toggle('gallery__like-btn_active');
   }
 
+  _isLiked() {
+    console.log(this._likes)
+    return Boolean(this._likes.find((item) => {
+      return item._id === this._userId
+    }))
+  }
+
   getId() {
-    return this._itemId
+    return this._itemId;
   }
 
   //Заполнение карточки данными и установка обработчиков
   cloneCard() {
-    //console.log(this._likes);
+    console.log(this._isLiked())
     this._clonedCard = this._getTemplate();
     const cardPic = this._clonedCard.querySelector('.gallery__pic');
     const cardTitle = this._clonedCard.querySelector('.gallery__title');
@@ -61,7 +68,9 @@ export class Card {
       this._removeBtn.classList.add('gallery__remove-btn_active');
     }
     //вешаем обработчики по клику на кнопки карточки
-    this._removeBtn.addEventListener('click', ()=> {this._handleRemoveBtn(this)});
+    this._removeBtn.addEventListener('click', () => {
+      this._handleRemoveBtn(this);
+    });
     this._likeBtn.addEventListener('click', this._likeCard.bind(this));
     cardPic.addEventListener('click', this._handleCardClick);
     return this._clonedCard; //возвращаем заполненную карточку

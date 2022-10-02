@@ -16,8 +16,7 @@ import {
   placeAddBtn,
   popupPlaceAdd,
   popupProfileEdit,
-  profileEditBtn,
-  userId
+  profileEditBtn
 } from '../utils/constants';
 
 //Создаем экземпляры классов
@@ -29,7 +28,7 @@ const popupPlaceAddClass = new PopupWithForm('#popup-add', addCard);
 popupPlaceAddClass.setEventListeners();
 const userInfoHandler = new UserInfo({nameSelector: '.profile__name', jobSelector: '.profile__job'});
 const api = new Api(apiConfig);
-
+let userId = null
 //////////////Загрузка карточек//////////////
 
 //создает новый инстанс Card
@@ -56,7 +55,6 @@ const cardLoader = new Section({
 }, '.gallery');
 
 //Загрузка карточек из массива
-cardLoader.renderItems();
 
 //Загрузка карточки из формы
 function addCard(formValues) {
@@ -72,7 +70,12 @@ function addCard(formValues) {
 
 
 api.requestUserInfo()
-  .then(res => userInfoHandler.setUserInfo(res))
+  .then(res => {
+    userInfoHandler.setUserInfo(res);
+    userId = res._id;
+    cardLoader.renderItems();
+    return res
+  })
   .catch((res) => console.log(`Ошибка, информация о пользователе на получена. Текст ошибки: ${res}`));
 
 //Сохранение данных из формы в строках профиля
