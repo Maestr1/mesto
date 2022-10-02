@@ -1,7 +1,7 @@
 import './index.css';
 
 //////////////Работа с попапом//////////////
-import {apiOptions, cardsArray, settings} from '../utils/data';
+import {apiConfig, settings} from '../utils/data';
 import {Section} from '../components/Section';
 import {Card} from '../components/Card';
 import {FormValidator} from '../components/FormValidator';
@@ -16,7 +16,8 @@ import {
   placeAddBtn,
   popupPlaceAdd,
   popupProfileEdit,
-  profileEditBtn, profileJob, profileName
+  profileEditBtn,
+  userId
 } from '../utils/constants';
 
 //Создаем экземпляры классов
@@ -27,26 +28,30 @@ popupProfileEditClass.setEventListeners();
 const popupPlaceAddClass = new PopupWithForm('#popup-add', addCard);
 popupPlaceAddClass.setEventListeners();
 const userInfoHandler = new UserInfo({nameSelector: '.profile__name', jobSelector: '.profile__job'});
-const api = new Api(apiOptions);
-
-////////////Загрузка данных с сервера/////////////////
-
+const api = new Api(apiConfig);
 
 //////////////Загрузка карточек//////////////
 
 //создает новый инстанс Card
-function createNewCard(name, link) {
-  return new Card(name, link, '.card-template', () => {
-    popupWithImageInstance.open(name, link);
-  }).cloneCard();
+function createNewCard(item) {
+  return new Card(item, userId, '.card-template',
+    () => popupWithImageInstance.open(item.name, item.link),
+    (instance) =>
+      api.removeCard(instance.getId())
+        .then(instance.removeCard())
+        .catch(err => console.log(`Ошибка, карточка не удалена. Текст ошибки: ${err}`)),
+    (instance) =>
+      api.putLike(instance.getId())
+        .catch(err => console.log(`Ошибка, лайк не поставлен. Текст ошибки: ${err}`)),
+    (instance) =>
+      api.removeLike(instance.getId())
+        .catch(err => console.log(`Ошибка, лайк не удален. Текст ошибки: ${err}`))).cloneCard();
 }
 
 const cardLoader = new Section({
-  items: cardsArray, renderer: (item) => {
-    const card = createNewCard(item.placeName, item.placeLink, '.card-template', () => {
-      popupWithImageInstance.open(item.placeName, item.placeLink);
-    });
-    cardLoader.addItem(card);
+  items: await api.requestCardList(), renderer: (item) => {
+    const card = createNewCard(item);
+    cardLoader.addItemFromServer(card);
   }
 }, '.gallery');
 
@@ -55,30 +60,25 @@ cardLoader.renderItems();
 
 //Загрузка карточки из формы
 function addCard(formValues) {
-  const newCard = createNewCard(formValues.placeName, formValues.placeLink, '.card-template', () => {
-    popupWithImageInstance.open(formValues.placeName, formValues.placeLink);
-  });
-  cardLoader.addItem(newCard);
-  popupPlaceAddClass.close();
-}
+  api.postCard(formValues)
+    .then(res => {
+      const newCard = createNewCard(res);
+      cardLoader.addItemFromForm(newCard);
+      popupPlaceAddClass.close();
+    })
+    .catch(err => console.log(`Ошибка, карточка не добавлена. Текст ошибки: ${err}`));
 
-//Загрузка данных профиля с сервера
-// function updateUserInfo() {
-//   api.requestUserInfo()
-//     .then(res => userInfoHandler.setUserInfo(res));
-// }
-//
-// updateUserInfo();
+}
 
 
 api.requestUserInfo()
-  .then(res=>{
-    userInfoHandler.setUserInfo(res)
-  })
+  .then(res => userInfoHandler.setUserInfo(res))
+  .catch((res) => console.log(`Ошибка, информация о пользователе на получена. Текст ошибки: ${res}`));
 
 //Сохранение данных из формы в строках профиля
 function editProfileInfo(formValues) {
   api.patchUserInfo(formValues)
+    .catch(err => console.log(`Ошибка, данные не отправлены. Текст ошибки: ${err}`));
   userInfoHandler.setUserInfo(formValues);
   popupProfileEditClass.close(); //закрываем попап
 }

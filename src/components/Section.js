@@ -11,7 +11,11 @@ export class Section {
     });
   }
 
-  addItem(cardElement) {
+  addItemFromServer(cardElement) {
+    this._container.append(cardElement);
+  }
+
+  addItemFromForm(cardElement) {
     this._container.prepend(cardElement);
   }
 }

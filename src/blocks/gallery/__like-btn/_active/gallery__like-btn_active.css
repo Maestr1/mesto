@@ -1,3 +1,4 @@
 .gallery__like-btn_active {
   background: url(../../../../images/active-like-icon.svg);
+  transition: background .3s ease-in-out;
 }

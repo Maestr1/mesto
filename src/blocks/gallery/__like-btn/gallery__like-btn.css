@@ -7,7 +7,7 @@
   border: none;
   background: url(../../../images/like_icon.svg) no-repeat center center;
   background-size: contain;
-  transition: opacity .2s ease-in-out;
+  transition: opacity .2s ease-in-out, background .2s ease-in-out;
 }
 
 
@@ -16,3 +16,6 @@
     opacity: .5;
   }
 }
+
+
+
