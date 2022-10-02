@@ -17,7 +17,6 @@ import {
   popupPlaceAdd,
   popupProfileEdit,
   profileEditBtn,
-  userId
 } from '../utils/constants';
 
 //Создаем экземпляры классов
@@ -33,7 +32,7 @@ const api = new Api(apiConfig);
 //////////////Загрузка карточек//////////////
 
 //создает новый инстанс Card
-function createNewCard(item) {
+function createNewCard(item, userId) {
   return new Card(item, userId, '.card-template',
     () => popupWithImageInstance.open(item.name, item.link),
     (instance) =>
@@ -49,14 +48,13 @@ function createNewCard(item) {
 }
 
 const cardLoader = new Section({
-  items: await api.requestCardList(), renderer: (item) => {
-    const card = createNewCard(item);
+  items: await api.requestCardList(), renderer: (item, userId) => {
+    const card = createNewCard(item, userId);
     cardLoader.addItemFromServer(card);
   }
 }, '.gallery');
 
 //Загрузка карточек из массива
-cardLoader.renderItems();
 
 //Загрузка карточки из формы
 function addCard(formValues) {
@@ -71,13 +69,13 @@ function addCard(formValues) {
 }
 
 
-api.requestUserInfo()
-  .then(res => userInfoHandler.setUserInfo(res))
-  .catch((res) => console.log(`Ошибка, информация о пользователе на получена. Текст ошибки: ${res}`));
-
 //Сохранение данных из формы в строках профиля
 function editProfileInfo(formValues) {
   api.patchUserInfo(formValues)
+    .then(() => {
+      userInfoHandler.setUserInfo(formValues);
+      popupProfileEditClass.close();
+    })
     .catch(err => console.log(`Ошибка, данные не отправлены. Текст ошибки: ${err}`));
   userInfoHandler.setUserInfo(formValues);
   popupProfileEditClass.close(); //закрываем попап
@@ -93,6 +91,15 @@ const placeAddFormValidator = createNewFormValidator(settings, popupPlaceAdd);
 placeAddFormValidator.enableValidation();
 const profileEditFormValidator = createNewFormValidator(settings, popupProfileEdit);
 profileEditFormValidator.enableValidation();
+
+
+api.requestUserInfo()
+  .then(res => {
+    userInfoHandler.setUserInfo(res);
+    return res;
+  })
+  .then((res) => cardLoader.renderItems(res._id))
+  .catch((res) => console.log(`Ошибка, информация о пользователе на получена. Текст ошибки: ${res}`));
 
 //Вешаем слушатель кликов на кнопки
 profileEditBtn.addEventListener('click', () => {

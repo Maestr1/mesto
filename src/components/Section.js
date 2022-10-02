@@ -5,9 +5,9 @@ export class Section {
     this._container = document.querySelector(containerSelector);
   }
 
-  renderItems() {
+  renderItems(userId) {
     this._items.forEach(item => {
-      this._renderer(item);
+      this._renderer(item, userId);
     });
   }
 
@@ -17,5 +17,6 @@ export class Section {
 
   addItemFromForm(cardElement) {
     this._container.prepend(cardElement);
+    this._container.lastChild.remove()
   }
 }
