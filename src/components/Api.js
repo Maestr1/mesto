@@ -33,6 +33,17 @@ export class Api {
       .then(res => this._onResponse(res));
   }
 
+  patchUserAvatar(formValue) {
+    return fetch(`${this._options.baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._options.headers,
+      body: JSON.stringify({
+        avatar: formValue.link
+      })
+    })
+      .then(res => this._onResponse(res));
+  }
+
   //Запрос списка карточек
   requestCardList() {
     return fetch(`${this._options.baseUrl}/cards`, {

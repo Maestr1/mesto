@@ -1,9 +1,8 @@
-import {profileAvatar, profileJob, profileName} from '../utils/constants';
-
 export class UserInfo {
-  constructor({nameSelector, jobSelector}) {
+  constructor({nameSelector, jobSelector, avatarSelector}) {
     this._profileName = document.querySelector(nameSelector);
     this._profileJob = document.querySelector(jobSelector);
+    this._profileAvatar = document.querySelector(avatarSelector);
   }
 
   getUserInfo() {
@@ -11,8 +10,12 @@ export class UserInfo {
     return this.userInfo;
   }
 
-  setUserInfo(formValues) {
-    this._profileName.textContent = formValues.name;
-    this._profileJob.textContent = formValues.about;
+  setUserInfo(data) {
+    this._profileName.textContent = data.name;
+    this._profileJob.textContent = data.about;
+  }
+
+  updateUserAvatar(data) {
+    this._profileAvatar.src = data.avatar;
   }
 }

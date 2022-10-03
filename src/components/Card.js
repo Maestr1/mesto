@@ -1,9 +1,10 @@
 //Класс для создания карточки
 export class Card {
   constructor(item, userId, templateSelector, handleCardClick, handleRemoveBtn, handlePutLike, handleRemoveLike) {
+    this._item = item
     this._link = item.link;
     this._name = item.name;
-    this._likes = item.likes;
+    this._likesArr = item.likes;
     this._itemId = item._id;
     this._ownerId = item.owner._id;
     this._userId = userId;
@@ -29,41 +30,38 @@ export class Card {
     this._clonedCard = null;
   }
 
-//Функция ставит лайк
-  _likeCard() {
-    if (!this._likeBtn.classList.contains('gallery__like-btn_active')) {
-      this._handlePutLike(this);
-    } else {
-      this._handleRemoveLike(this);
-    }
-    this._likeBtn.classList.toggle('gallery__like-btn_active');
+  //Проверяет стоит ли лайк от юзера
+  isLiked() {
+    return this._likesArr.some(item=>item._id === this._userId)
   }
 
-  _isLiked() {
-    console.log(this._likes)
-    return Boolean(this._likes.find((item) => {
-      return item._id === this._userId
-    }))
+  //Обновляет количество лайков и добавляет класс кнопке
+  setLike(data) {
+    this._likesArr = data.likes;
+    this.likeCounter.textContent = this._likesArr.length
+    if(this.isLiked()) {
+      this._likeBtn.classList.add('gallery__like-btn_liked')
+    } else {this._likeBtn.classList.remove('gallery__like-btn_liked')}
   }
 
+  //Запрос ID карточки для использования вне класса
   getId() {
     return this._itemId;
   }
 
   //Заполнение карточки данными и установка обработчиков
   cloneCard() {
-    console.log(this._isLiked())
     this._clonedCard = this._getTemplate();
     const cardPic = this._clonedCard.querySelector('.gallery__pic');
     const cardTitle = this._clonedCard.querySelector('.gallery__title');
     this._removeBtn = this._clonedCard.querySelector('.gallery__remove-btn');
     this._likeBtn = this._clonedCard.querySelector('.gallery__like-btn');
-    this._likeCounter = this._clonedCard.querySelector('.gallery__like-counter');
+    this.likeCounter = this._clonedCard.querySelector('.gallery__like-counter');
     //запоняем атрибуты данными с входа фукции
     cardTitle.textContent = this._name;
     cardPic.src = this._link;
     cardPic.alt = `На изображении ${this._name}`;
-    this._likeCounter.textContent = this._likes.length;
+    this.setLike(this._item)
     if (this._ownerId === this._userId) {
       this._removeBtn.classList.add('gallery__remove-btn_active');
     }
@@ -71,7 +69,11 @@ export class Card {
     this._removeBtn.addEventListener('click', () => {
       this._handleRemoveBtn(this);
     });
-    this._likeBtn.addEventListener('click', this._likeCard.bind(this));
+    this._likeBtn.addEventListener('click', ()=>{
+      if(!this.isLiked()) {
+        this._handlePutLike(this)
+      } else this._handleRemoveLike(this)
+    });
     cardPic.addEventListener('click', this._handleCardClick);
     return this._clonedCard; //возвращаем заполненную карточку
   }
