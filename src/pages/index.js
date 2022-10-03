@@ -17,7 +17,6 @@ import {
   popupPlaceAdd,
   popupProfileEdit,
   profileEditBtn
-  profileEditBtn,
 } from '../utils/constants';
 
 //Создаем экземпляры классов
