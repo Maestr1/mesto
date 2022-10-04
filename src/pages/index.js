@@ -40,12 +40,6 @@ const userInfoHandler = new UserInfo({
 });
 let userId = null;
 
-
-function changeSaveStatus(popup, text) {
-  const activeSubmitBtn = popup.querySelector('.popup__submit-btn');
-  activeSubmitBtn.textContent = text;
-}
-
 //////////////Загрузка карточек//////////////
 //создает новый инстанс Card
 function createNewCard(item) {
@@ -63,34 +57,30 @@ function createNewCard(item) {
           .catch(err => console.log(`Ошибка, карточка не удалена. Текст ошибки: ${err}`));
       });
     },
-    (instance) =>
-      api.putLike(instance.getId())
-        .then(res => {
-          instance.setLike(res);
-          return res;
-        })
-        .catch(err => console.log(`Ошибка, лайк не поставлен. Текст ошибки: ${err}`)),
+    (instance) => {
+      return api.putLike(instance.getId())
+        .then(res => instance.setLike(res))
+        .catch(err => console.log(`Ошибка, лайк не поставлен. Текст ошибки: ${err}`));
+    },
     (instance) =>
       api.removeLike(instance.getId())
-        .then(res => {
-          instance.setLike(res);
-          return res;
-        })
+        .then(res => instance.setLike(res))
         .catch(err => console.log(`Ошибка, лайк не удален. Текст ошибки: ${err}`))).cloneCard();
 }
 
 const cardLoader = new Section({
-  items: await api.requestCardList(), renderer: (item) => {
+  items: await api.requestCardList()
+    .catch(err => console.log(`Ошибка, не получен список карточек. Текст ошибки: ${err}`)),
+  renderer: (item) => {
     const card = createNewCard(item);
     cardLoader.addItemFromServer(card);
   }
 }, '.gallery');
 
-//Загрузка карточек из массива
 
 //Загрузка карточки из формы
 function addCard(formValues) {
-  changeSaveStatus(popupPlaceAdd, 'Сохранение...');
+  popupPlaceAddClass.changeSaveStatus('Сохранение...');
   api.postCard(formValues)
     .then(res => {
       const newCard = createNewCard(res);
@@ -98,31 +88,30 @@ function addCard(formValues) {
       popupPlaceAddClass.close();
     })
     .catch(err => console.log(`Ошибка, карточка не добавлена. Текст ошибки: ${err}`))
-    .finally(() => changeSaveStatus(popupPlaceAdd, 'Создать'));
+    .finally(() => popupPlaceAddClass.changeSaveStatus('Создать'));
 }
 
 function patchAvatar(formValues) {
-  changeSaveStatus(popupAvatarEdit, 'Сохранение...');
+  popupAvatarEditClass.changeSaveStatus('Сохранение...');
   api.patchUserAvatar(formValues)
     .then(res => {
       userInfoHandler.updateUserAvatar(res);
       popupAvatarEditClass.close();
-      return res;
     })
     .catch(err => console.log(`Ошибка, данные не отправлены. Текст ошибки: ${err}`))
-    .finally(() => changeSaveStatus(popupAvatarEdit, 'Сохранить'));
+    .finally(() => popupAvatarEditClass.changeSaveStatus('Сохранить'));
 }
 
 //Сохранение данных из формы в строках профиля
 function editProfileInfo(formValues) {
-  changeSaveStatus(popupProfileEdit, 'Сохранение...');
+  popupProfileEditClass.changeSaveStatus('Сохранение...');
   api.patchUserInfo(formValues)
     .then(() => {
       userInfoHandler.setUserInfo(formValues);
       popupProfileEditClass.close();
     })
     .catch(err => console.log(`Ошибка, данные не отправлены. Текст ошибки: ${err}`))
-    .finally(() => changeSaveStatus(popupProfileEdit, 'Сохранить'));
+    .finally(() => popupProfileEditClass.changeSaveStatus('Сохранить'));
 }
 
 //Валидация форм
@@ -138,15 +127,15 @@ profileEditFormValidator.enableValidation();
 const avatarEditFormValidator = createNewFormValidator(settings, popupAvatarEdit);
 avatarEditFormValidator.enableValidation();
 
-await api.requestUserInfo()
-  .then(res => {
-    userId = res._id;
-    userInfoHandler.setUserInfo(res);
-    userInfoHandler.updateUserAvatar(res);
-    cardLoader.renderItems();
-    return res;
-  })
-  .catch((res) => console.log(`Ошибка, информация о пользователе на получена. Текст ошибки: ${res}`));
+Promise.all([api.requestUserInfo(), api.requestCardList()])
+  .then(([userInfo, cardList])=>{
+    userId = userInfo._id;
+    userInfoHandler.setUserInfo(userInfo);
+    userInfoHandler.updateUserAvatar(userInfo);
+    cardLoader.renderItems(cardList)
+})
+  .catch((res) => console.log(`Ошибка, запрос информации не выполнен. Текст ошибки: ${res}`))
+
 
 //Вешаем слушатель кликов на кнопки
 profileEditBtn.addEventListener('click', () => {

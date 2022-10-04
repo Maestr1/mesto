@@ -50,7 +50,6 @@ export class Api {
       headers: this._options.headers
     })
       .then(res => this._onResponse(res))
-      .catch(err => console.log(`Ошибка, не получен список карточек. Текст ошибки: ${err}`));
   }
 
   //Отправка новой корточки на сервер
