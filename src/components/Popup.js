@@ -19,10 +19,6 @@ export class Popup {
     }
   }
 
-  changeSaveStatus(text) {
-    const activeSubmitBtn = this._popupElement.querySelector('.popup__submit-btn');
-    activeSubmitBtn.textContent = text;
-  }
 
   setEventListeners() {
     //document.addEventListener('keydown', this._escHandler);

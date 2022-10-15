@@ -17,6 +17,11 @@ export class PopupWithForm extends Popup {
     return this._formValues;
   }
 
+  changeSaveStatus(text) {
+    const activeSubmitBtn = this._popupElement.querySelector('.popup__submit-btn');
+    activeSubmitBtn.textContent = text;
+  }
+
   setEventListeners() {
     this._popupElement.addEventListener('submit', (evt) => {
       evt.preventDefault();

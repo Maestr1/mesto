@@ -49,10 +49,9 @@ function createNewCard(item) {
       popupWithConfirmClass.open();
       popupWithConfirmClass.updateFunctionToConfirm(() => {
         api.removeCard(instance.getId())
-          .then(res => {
+          .then(() => {
             instance.removeCard();
             popupWithConfirmClass.close();
-            return res;
           })
           .catch(err => console.log(`Ошибка, карточка не удалена. Текст ошибки: ${err}`));
       });
